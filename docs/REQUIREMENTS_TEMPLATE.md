@@ -13,7 +13,7 @@
 | Author | Daniya Nussipbek |
 | Date | 2026-10-03 |
 | Agent / tool being tested | _e.g. Claude Code, Cursor, Copilot_ |
-| Status | Draft: waiting on the source gaps in Section 7.4 and Open Questions |
+| Status | Ready for build (fill in the agent being tested first) |
 
 ---
 
@@ -32,7 +32,7 @@ Learning GD&T can be slow and difficult because it is often presented through de
 **1.4 Assumed starting knowledge of the user**
 The user knows that engineering drawings have multiple views of an object and include basic dimensions that describe its geometry. However, they have limited knowledge of more advanced drawing concepts/symbols and GD&T concepts. For example, they may not know symbols for features such as counterbores, understand how datum planes are used, or know drawing rules such as avoiding repeated dimensions across multiple views.
 
-*Scope note:* general drawing basics such as counterbore symbols and repeated dimensions get no lessons in v1. They may appear only as the error in "What is wrong with this drawing?" questions, and only if an allowed source supports the rule (see Section 7.4).
+*Scope note:* general drawing basics such as counterbore symbols and repeated dimensions get no lessons in v1. The approved sources do not support those two rules (Section 7.4), so they are left out of v1. "What is wrong with this drawing?" questions use the source-supported GD&T errors listed in Section 7.4 instead.
 
 **1.5 Success looks like**
 The user shows understanding of a concept across multiple different questions that test the same underlying idea. Simply memorizing the answer to a previous question they got wrong and answering it correctly when the exact same question shows up again does not demonstrate successful learning. Success should be based on whether the user can apply the concept correctly in different contexts or drawing examples.
@@ -56,10 +56,14 @@ The user shows understanding of a concept across multiple different questions th
 *Hint: for 8 hours, aim for 3 to 5 concepts fully done rather than 10 half done.*
 
 **2.2 Standard the content follows**
-- **Allowed technical references for v1:** NASA KSC-GP-435 Volume I and NASA GSFC-X-673-64-1F only (details in Section 7.1).
-- Both NASA documents say dimensioning and tolerancing shall follow ASME Y14.5. KSC-GP-435 lists ASME Y14.5-2018, and GSFC-X-673-64-1F lists ANSI Y14.5M-1982. The site therefore uses ASME Y14.5 conventions as invoked by NASA.
-- ASME and ISO standards are paid documents. Do not copy their text, tables or figures into the project, and do not use them as sources.
-- **If a GD&T rule cannot be confidently supported by the two allowed NASA documents, flag it to the author. Do not invent it.** Known gaps are listed in Section 7.4.
+- **Primary GD&T reference:** *Fundamentals of GD&T, Part I* by J. Berez (CC BY 4.0). Use it for datums, form, orientation, location, symbols and feature control frames.
+- **Supporting GD&T references:** *Fundamentals of GD&T, Part II* (Berez and Praniewicz, NIST) and NASA *GD and T Basics* (Willis, Marshall Space Flight Center).
+- **Real drawing example:** the public-domain NIST PMI test drawing CTC-05, used only to see how GD&T appears on a real drawing.
+- **Drawing practice references:** NASA KSC-GP-435 Volume I and NASA GSFC-X-673-64-1F.
+- All of these sources follow ASME Y14.5 conventions. Part I uses ASME Y14.5-2018, and the NASA slides cite ASME Y14.5-2009. If two sources disagree, follow Part I and flag the difference to the author.
+- ASME and ISO standards are paid documents. Do not use them as website content or as sources.
+- **Do not copy diagrams, figures or explanatory text from any source.** Write original explanations and draw original SVGs. Part II and the NASA slides contain copyrighted material, and Part I contains figures from a copyrighted textbook.
+- **If a technical claim cannot be supported by the approved sources, flag it to the author. Do not invent it.**
 
 **2.3 Out of scope for v1** (things the agent must NOT build)
 - No need for accounts, mobile app, 3D CAD navigation and movement, or payment system.
@@ -193,7 +197,8 @@ The user shows understanding of a concept across multiple different questions th
 - Do not add features that are not listed in the requirements without asking me first.
 - Prefer simple implementations over clever or highly abstract code.
 - All engineering drawings and visual examples must be original/project-created or come from sources that permit reuse.
-- Use only the two allowed NASA documents for GD&T rules. Flag any rule they do not support instead of inventing it.
+- Use only the approved sources in Section 7.1 for technical claims. Flag any claim they do not support instead of inventing it.
+- Never copy figures, diagrams or explanatory text from any source. All explanations and SVG drawings must be original.
 ---
 
 ## 6. UI/UX Requirements
@@ -214,12 +219,18 @@ The user shows understanding of a concept across multiple different questions th
 
 ### 7.1 Technical and Educational Sources
 
-| Source title | Link | License / public status | What you will use it for |
-|---|---|---|---|
-| NASA KSC-GP-435, Volume I: *Engineering Drawing Practices, Aerospace and Ground Support Equipment*, Rev. H, Change 1 (2021-08-25) | https://standards.nasa.gov/node/815 (current PDF: GP-435-Vol-I-Chg-H-1.pdf on that page) | Active. NASA marks it "Internet Public: cleared for public accessibility on the internet." Not export controlled. | Datums, positional tolerancing policy, the rule that dimensioning and tolerancing follow ASME Y14.5-2018 |
-| NASA GSFC-X-673-64-1F: *Engineering Drawing Standards Manual*, Goddard Space Flight Center (August 1994) | https://s3vi.ndc.nasa.gov/ssri-kb/static/resources/NASA%20GSFC-X-673-64-1F.pdf | Publicly hosted NASA document; U.S. Government work. Older manual that references ANSI Y14.5M-1982. | Datum lines and labeling, true position practice, drafting rules, citing ANSI/ASME Y14.5 |
+Page numbers in this document are PDF page numbers. In the three slide decks they match the slide numbers.
 
-No other technical sources are allowed in v1. The second PDF on the KSC page is the historical Rev. H and should not be used.
+| Role | Source | Link | License / public status | Use it for |
+|---|---|---|---|---|
+| **Primary** | J. Berez, *Fundamentals of Geometric Dimensioning and Tolerancing, Part I*, v2.1.0, 2023-08-10, UNC Charlotte. DOI 10.5281/zenodo.8237096 | https://zenodo.org/records/8237096 | CC BY 4.0. Attribution required. Some figures are credited to the Shigley textbook and are **not** covered by the license. | Datums, form, orientation, location, symbols, feature control frames |
+| Supporting | J. Berez and M. Praniewicz (NIST), *Fundamentals of GD&T, Part II*, 2023 | https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=936463 | Published by NIST. Contains third-party copyrighted material, some of it CC BY-NC-ND. Treat as copyrighted: paraphrase only. | Clarifications, how flatness, perpendicularity and position are inspected |
+| Supporting | A. Willis, *GD and T Basics*, NASA Marshall Space Flight Center, 2025-12-03. NTRS 20250011008 | https://ntrs.nasa.gov/citations/20250011008 | Public release, but NASA notes "Portions of document may include copyright protected material." Its figures come from ASME Y14.5 and a commercial trainer. Paraphrase only. | Tolerance zone shapes for flatness and perpendicularity, true position |
+| Drawing example | NIST PMI test case CTC-05, machined part drawing with GD&T | https://www.innerscene.com/tools/library/drawings/machined-part-drawing-nist-ctc-05-gd-t-f2a95d84 | U.S. Government work, public domain in the U.S. This link is a third-party copy of the NIST file. | Seeing how datums and feature control frames look on a real drawing |
+| Drawing practice | NASA KSC-GP-435 Volume I, *Engineering Drawing Practices*, Rev. H, Change 1, 2021-08-25 | https://standards.nasa.gov/node/815 (current PDF: GP-435-Vol-I-Chg-H-1.pdf) | Active. Marked "Internet Public". Not export controlled. | Datum and positional tolerancing policy. Evidence that NASA follows ASME Y14.5-2018. |
+| Drawing practice | NASA GSFC-X-673-64-1F, *Engineering Drawing Standards Manual*, August 1994 | https://s3vi.ndc.nasa.gov/ssri-kb/static/resources/NASA%20GSFC-X-673-64-1F.pdf | Publicly hosted U.S. Government work. Cites ANSI Y14.5M-1982. | Datum labeling, no implied datums, true position practice |
+
+No other technical sources are allowed in v1.
 
 ### 7.2 AI Tools Used
 
@@ -231,28 +242,87 @@ No other technical sources are allowed in v1. The second PDF on the KSC page is 
 ### 7.3 Citations shown on the website
 
 The site must have a **Sources** page, linked from the footer of every page. It must state:
-- [ ] Both NASA documents above, with title, document number, revision or date, and link.
-- [ ] That both NASA documents base their dimensioning and tolerancing rules on ASME Y14.5. KSC-GP-435 Vol. I invokes ASME Y14.5-2018, and GSFC-X-673-64-1F invokes ANSI Y14.5M-1982.
-- [ ] That the main GD&T standards, ASME Y14.5 and ISO 1101, are paid documents and are not publicly available for free download. This is why the site relies on public NASA documents and paraphrases ideas instead of quoting the standards.
+- [ ] Every source in Section 7.1, with author, title, date or revision, and link.
+- [ ] The CC BY 4.0 attribution for Part I: title, author, a link to the license, and a note that the site's explanations are original and paraphrase the ideas.
+- [ ] That the CTC-05 drawing is a NIST public-domain test drawing, viewed through a third-party copy.
+- [ ] That NASA bases its dimensioning and tolerancing rules on ASME Y14.5. KSC-GP-435 Vol. I invokes ASME Y14.5-2018, and GSFC-X-673-64-1F invokes ANSI Y14.5M-1982. The NIST and NASA slide decks also teach ASME Y14.5.
+- [ ] That the main GD&T standards, ASME Y14.5 and ISO 1101, are paid documents and are not publicly available for free download. This is why the site relies on free public sources and paraphrases ideas instead of quoting the standards.
 - [ ] That the site is an independent educational project and is not affiliated with or endorsed by NASA, ASME or ISO.
-- [ ] Each lesson also shows a short source line, for example "Based on GSFC-X-673-64-1F, PDF page 119."
+- [ ] The full credits list in Section 7.5, grouped the same way.
+- [ ] Each lesson also shows a short source line, for example "Based on Berez, Part I, slide 30, and NASA GD and T Basics, slide 22."
 
 ### 7.4 Source coverage check (flagged items)
 
-Checked on 2026-10-03 by searching the text of both PDFs. Page numbers are PDF page numbers, not printed page numbers.
+Checked on 2026-10-03 by reading the text of all approved PDFs. The NIST CTC-05 drawing was not text-checked.
 
-| Topic | Supported by allowed sources? | Where |
+| Topic | Supported? | Where |
 |---|---|---|
-| Datums and datum reference frame | **Yes** | GSFC p42 (datum line style), p97 (primary, secondary, tertiary datums labeled alphabetically), p119 (no implied datums; datums should be functional and on a physical surface or feature of size). KSC p20 (centerline datums from features of size), p27 (datum A, B, C note). |
-| Position | **Partly** | GSFC p97, p119 to p120: true position uses basic dimensions and datum letters, hole patterns should preferably be true positioned, true position can be loose, projected tolerance zones for tapped holes. KSC p20: positional tolerances for all features of size. **Not covered:** the symbol, the feature control frame layout, or the shape of the tolerance zone. |
-| Perpendicularity | **Barely** | GSFC p97 and p119 only say a feature's perpendicularity relationship must be identified with datum letters. **Not covered:** the symbol or the tolerance zone. |
-| Flatness | **No** | Not found in either document. |
-| Tolerance zone shapes for the Visualization Mode | **No** | Neither document defines tolerance zones. |
-| GD&T symbols and feature control frames | **No** | Neither document has a figure or table explaining them. |
-| Counterbore symbol | **No** | GSFC p120 to p121 only give counterbore design advice. |
-| Avoid repeated dimensions across views | **No** | Closest: GSFC p97 and p120 say to use as few reference dimensions as possible. KSC p23 says notes should not duplicate information. |
+| GD&T symbols and the 5 control families | **Yes** | Part I slides 13, 27, 40. NASA slide 17. |
+| Feature control frame parts and placement | **Yes** | Part I slides 28, 39. NASA slides 16, 21. |
+| Tolerance zone idea | **Yes** | Part I slide 7. NASA slide 16. |
+| Datums and datum reference frame | **Yes** | Part I slides 13 to 23. NASA slide 16. GSFC p97, p119. KSC p20, p27. |
+| Flatness | **Yes** | Part I slides 27, 30: form control, no datum reference. NASA slide 22: zone is 2 parallel planes. Part II slide 25: inspection. |
+| Perpendicularity | **Yes** | Part I slides 27, 32, 33: 90 degrees to a datum, datum required. NASA slide 25: 2 parallel lines or planes for a surface, a cylinder for a feature of size axis. Part II slide 24: inspection. |
+| Position | **Yes** | Part I slides 27, 28, 35: locates a center, axis or median plane from a datum reference frame. The diameter symbol sets a cylindrical zone shape. NASA slide 23: basic dimensions set the true position at the zone's center. Part II slide 26: inspection. |
+| MMC, LMC and bonus tolerance | **Partly** | Part I slide 45 defines MMC and LMC, but slide 28 says modifiers are not covered. Already out of scope for v1. |
+| Counterbore symbol | **No** | Not in any approved source. Left out of v1. |
+| Avoid repeated dimensions across views | **No** | Part I slide 20 only says not to repeat datum callouts. Left out of v1. |
 
-**Agent rule:** do not write content for any "No" or "Not covered" item until the author resolves it in Section 11.
+**Source-supported errors for "What is wrong with this drawing?" questions:**
+- Flatness with a datum reference. Part I slide 27 says flatness takes no datum.
+- Perpendicularity with no datum reference. Part I slides 27 and 32.
+- Position located with plus/minus dimensions instead of basic dimensions. Part I slide 35, NASA slide 23.
+- The same datum feature labeled twice. Part I slide 20.
+- A datum feature symbol placed on a center line. Part I slide 20.
+- A feature located from an implied datum with no datum letter. GSFC p119.
+
+**Agent rule:** do not write content for any "No" item. For "Partly" items, use only what the listed slides say.
+### 7.5 Full credits list
+
+The Sources page must show everything below. Group B is acknowledged because their work appears inside the approved sources. **Nothing from Group B is reproduced on this site.**
+
+**A. Authors and institutions of the approved sources**
+
+| Source | People | Institutions and hosts |
+|---|---|---|
+| Fundamentals of GD&T, Part I | Jaime Berez, Ph.D. | Center for Precision Metrology, Department of Mechanical Engineering and Engineering Science, University of North Carolina at Charlotte. An earlier version was developed at the Georgia Institute of Technology. Hosted on Zenodo, operated by CERN. |
+| Fundamentals of GD&T, Part II | Jaime Berez, Ph.D. and Maxwell Praniewicz, Ph.D. | UNC Charlotte. National Institute of Standards and Technology (NIST), Intelligent Systems Division, Production Systems Group. Hosted by NIST. |
+| GD and T Basics | Adam Willis | NASA Marshall Space Flight Center. Given as a guest lecture at the University of Alabama in Huntsville. Hosted on the NASA Technical Reports Server (NTRS). |
+| CTC-05 machined part drawing | No individual authors listed | NIST PMI CAD models, a U.S. Government work. Viewed through the Innerscene drawing library. |
+| KSC-GP-435 Volume I | No individual authors listed | NASA Kennedy Space Center, Engineering Directorate. Hosted on the NASA Technical Standards System. |
+| GSFC-X-673-64-1F | No individual authors listed | NASA Goddard Space Flight Center, Mechanical Engineering Branch. Hosted on a NASA knowledge-base server. |
+
+**B. Third parties whose work appears inside the approved sources**
+
+| Credited in | Who | What |
+|---|---|---|
+| Part I and Part II | Richard G. Budynas and J. Keith Nisbett, McGraw-Hill | Shigley's Mechanical Engineering Design, 10th edition, 2014. Source of many figures. Part II spells the name "Bundynas". |
+| Part II | Mitutoyo America Corporation | Digital outside micrometer example |
+| Part II | The L.S. Starrett Company | Digital indicator example |
+| Part II | D.A. Maisano et al. | Shipbuilding measurement study, Production Engineering, 2023 |
+| Part II | S. Feng et al. | Fringe projection calibration review, Optics and Lasers in Engineering, 2021 |
+| Part II | P. Shah, R. Racasan and P. Bills | Additive manufacturing computed tomography study, Case Studies in Nondestructive Testing and Evaluation, 2016 |
+| Part II | GrabCAD community model "Spacehugger" | Case-study part. The model's author is not named in Part II. |
+| Part II | S. Kalpakjian and S. Schmid, Pearson Education | Listed as further reading |
+| NASA slides | Shawn W. Skinner, via imgflip.com | Title slide image |
+| NASA slides | Krulikowski Consulting | Feature control frame figure |
+| NASA slides | Factorem and GD&T Basics (gdandtbasics.com) | GD&T symbol references |
+| Part I | SME Tooling U | Listed as a learning resource |
+
+**C. Standards bodies named in the sources.** These are named for context only. Their standards are not used as content.
+- ASME: Y14.5, Y14.5.1, Y14.41, Y14.46, Y14.100, B4.1, B4.2 and B18.2.8
+- ISO Technical Committee 213, including ISO 1101
+- ANSI: Y14.5M-1982
+- American Welding Society: A2.4
+
+**D. Tools and services used to build and run the site**
+- OpenAI API, for wrong-answer explanations
+- Anthropic Claude, for planning and coding help
+- Open-source software: Flask by the Pallets Projects, Gunicorn, the OpenAI Python library and python-dotenv
+- Render, for hosting
+
+**Disclaimer to show:** this site is an independent student project. It is not affiliated with or endorsed by any person, institution or company listed above.
+
 ---
 
 ## 8. Data and Privacy
@@ -304,6 +374,6 @@ User progress data is stored locally in the browser and is not transmitted to a 
 
 ## 11. Open Questions
 _Write down anything you are unsure about. The agent should answer or flag these before building._
-- **Source gap (blocking).** The allowed NASA documents do not define flatness, perpendicularity zones, position zone shape, or the GD&T symbols (Section 7.4). The author must choose one: (a) add one free, openly licensed educational source that explains them, (b) drop the unsupported concepts from v1, or (c) allow them as clearly labeled "general practice, not from allowed sources".
-- **Drawing basics questions.** The counterbore symbol and repeated-dimension rules are not supported either. Unless the author adds a source, v1 has no Drawing basics questions.
+- **Part I author.** Part I is by J. Berez at UNC Charlotte and does not name NIST. It is the first half of a seminar series whose Part II was co-written with NIST. The site should cite it under Berez's name, not as a NIST publication.
+- **Original NIST link for CTC-05.** The approved link is a third-party copy. If you find NIST's own page for the PMI test cases, add it to Section 7.1.
 - **Agent under test.** Fill in the header table before each agent run.

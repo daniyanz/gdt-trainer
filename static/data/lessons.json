@@ -1,0 +1,124 @@
+{
+  "lessons": [
+    {
+      "id": "datums",
+      "title": "Datums and the datum reference frame",
+      "symbolName": "Datum feature symbol",
+      "symbolSvg": "drawings/sym-datum.svg",
+      "explanation": [
+        "A loose part can slide along and rotate about X, Y and Z, which makes six degrees of freedom. Datums lock these down so the part can be measured in a known coordinate system.",
+        "A datum feature is a real surface on the part, such as a face or a hole. The datum is the perfect, theoretical plane, axis or point that comes from it.",
+        "The datum feature symbol, a boxed letter joined to a triangle on the surface, tells you which surface is which datum.",
+        "In a feature control frame, datum letters are listed in order of precedence: primary, secondary, tertiary. Together they form the datum reference frame."
+      ],
+      "diagram": "drawings/lesson-datums.svg",
+      "diagramAlt": "A block whose uneven bottom surface is datum feature A, resting on a perfect dashed datum plane. Datum feature B is the left side.",
+      "commonMistake": "Treating datum order as unimportant. A | B | C and A | C | B are different reference frames. The primary datum is set first, and later datums cannot change what earlier ones already fixed.",
+      "sources": "Berez, Fundamentals of GD&T Part I, slides 16 to 22. NASA GD and T Basics, slides 16 and 18.",
+      "quiz": [
+        {
+          "question": "How many degrees of freedom does a free rigid part have?",
+          "options": ["3", "6", "9", "12"],
+          "answer": 1,
+          "explanation": "Three translations along X, Y and Z, plus three rotations about them: six in total."
+        },
+        {
+          "question": "A frame ends with | A | B | C |. Which datum is primary?",
+          "options": ["A", "B", "C", "None. The order does not matter."],
+          "answer": 0,
+          "explanation": "Datums are listed in order of precedence, so the first letter, A, is primary."
+        }
+      ]
+    },
+    {
+      "id": "flatness",
+      "title": "Flatness",
+      "symbolName": "Flatness symbol (a parallelogram)",
+      "symbolSvg": "drawings/sym-flatness.svg",
+      "explanation": [
+        "Flatness is a form control. It limits how far a single surface may stray from a perfect plane.",
+        "Its tolerance zone is two parallel planes spaced the tolerance value apart, and every point of the surface must lie between them.",
+        "Flatness compares the surface only with itself. It never references a datum, and its zone is free to float to wherever the surface fits.",
+        "It is a good choice for faces that mate, seal or carry load."
+      ],
+      "diagram": "drawings/lesson-flatness.svg",
+      "diagramAlt": "A block with a wavy top surface sitting inside two dashed parallel lines 0.05 apart, with a flatness frame pointing at the top.",
+      "commonMistake": "Confusing flatness with parallelism. Parallelism controls a surface relative to a datum. Flatness has no datum at all, so a datum letter in a flatness frame is an error.",
+      "sources": "Berez, Fundamentals of GD&T Part I, slides 27, 30 and 34. NASA GD and T Basics, slide 22.",
+      "quiz": [
+        {
+          "question": "What is the shape of a flatness tolerance zone?",
+          "options": ["Two parallel planes", "A cylinder", "A circle around a point", "A cone"],
+          "answer": 0,
+          "explanation": "The surface must fit between two parallel planes spaced the tolerance value apart."
+        },
+        {
+          "question": "Which datum does a flatness frame reference?",
+          "options": ["None", "Always datum A", "The primary datum of the part", "Any datum on the opposite face"],
+          "answer": 0,
+          "explanation": "Flatness is a form control. It compares the surface only with itself, so it takes no datum."
+        }
+      ]
+    },
+    {
+      "id": "perpendicularity",
+      "title": "Perpendicularity",
+      "symbolName": "Perpendicularity symbol",
+      "symbolSvg": "drawings/sym-perpendicularity.svg",
+      "explanation": [
+        "Perpendicularity is an orientation control. It limits how far a surface or an axis may stray from exactly 90° to a datum.",
+        "Because it is measured relative to something, a perpendicularity frame always names at least one datum.",
+        "For a flat surface, the zone is two parallel planes the tolerance value apart, standing at 90° to the datum. In a 2D view they appear as two parallel lines.",
+        "For the axis of a hole or pin, the zone can instead be a cylinder."
+      ],
+      "diagram": "drawings/lesson-perpendicularity.svg",
+      "diagramAlt": "A block on datum A whose slightly tilted right face sits inside two dashed vertical lines 0.1 apart.",
+      "commonMistake": "Leaving the datum out. Without a datum there is nothing to be perpendicular to, so the frame is incomplete.",
+      "sources": "Berez, Fundamentals of GD&T Part I, slides 27, 32 and 33. NASA GD and T Basics, slide 25.",
+      "quiz": [
+        {
+          "question": "Perpendicularity belongs to which group of controls?",
+          "options": ["Orientation", "Form", "Location", "Runout"],
+          "answer": 0,
+          "explanation": "Perpendicularity, parallelism and angularity are the orientation controls."
+        },
+        {
+          "question": "For a flat surface, what is the perpendicularity tolerance zone?",
+          "options": ["Two parallel planes at 90° to the datum", "A circle around the surface", "Two planes parallel to the datum", "A sphere"],
+          "answer": 0,
+          "explanation": "The zone is two parallel planes the tolerance value apart, standing at 90° to the datum."
+        }
+      ]
+    },
+    {
+      "id": "position",
+      "title": "Position",
+      "symbolName": "Position symbol",
+      "symbolSvg": "drawings/sym-position.svg",
+      "explanation": [
+        "Position is a location control. It limits how far the center, axis or center plane of a feature of size, such as a hole, may wander from its true position.",
+        "The true position is set by basic dimensions. These are exact numbers drawn in a box, and they carry no tolerance of their own.",
+        "A diameter symbol (Ø) before the tolerance makes the zone a cylinder, which looks like a circle in a top view. The real axis must stay inside it.",
+        "Position always references datums, which say where the measurement starts."
+      ],
+      "diagram": "drawings/lesson-position.svg",
+      "diagramAlt": "A plate with a hole located by boxed basic dimensions 30 and 20 from datums B and C, a position frame, and a magnified circular zone.",
+      "commonMistake": "Locating a hole with ± dimensions while also giving it a position tolerance. Position needs basic (boxed) dimensions to define the true position.",
+      "sources": "Berez, Fundamentals of GD&T Part I, slides 27, 28, 35 and 43. NASA GD and T Basics, slides 16 and 23.",
+      "quiz": [
+        {
+          "question": "What defines the true position of a hole?",
+          "options": ["Basic (boxed) dimensions", "± dimensions", "The hole's diameter", "The surface finish"],
+          "answer": 0,
+          "explanation": "Basic dimensions are exact and locate the center of the position tolerance zone."
+        },
+        {
+          "question": "In a position frame, what does Ø0.2 describe?",
+          "options": ["A cylindrical zone 0.2 mm in diameter", "The hole is 0.2 mm in diameter", "The hole may be 0.2 mm larger", "A flatness limit of 0.2 mm"],
+          "answer": 0,
+          "explanation": "The Ø makes the zone a cylinder, and 0.2 is its diameter. The hole's axis must stay inside it."
+        }
+      ]
+    }
+  ]
+}

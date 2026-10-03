@@ -1,0 +1,25 @@
+{
+  "modes": [
+    {
+      "id": "flatness",
+      "title": "Flatness",
+      "description": "Side view of a block's top surface. The zone is two parallel lines, the tolerance value apart. Flatness has no datum, so the zone may tilt and shift to wherever the surface fits best. The part passes when every point of the surface is inside.",
+      "source": "Berez, Part I, slide 30; NASA GD and T Basics, slide 22",
+      "startValue": 0.2
+    },
+    {
+      "id": "perpendicularity",
+      "title": "Perpendicularity",
+      "description": "Front view of a block on datum A. The zone is two parallel lines, the tolerance value apart, always standing at 90° to datum A. The part passes when the whole right face fits between them.",
+      "source": "Berez, Part I, slide 32; NASA GD and T Basics, slide 25",
+      "startValue": 0.1
+    },
+    {
+      "id": "position",
+      "title": "Position",
+      "description": "Top view of a hole, magnified around its true position, which is set by basic dimensions. With Ø in the frame, the zone is a circle (a cylinder in 3D) whose diameter is the tolerance value. The part passes when the hole's real axis, the dot, is inside the circle.",
+      "source": "Berez, Part I, slides 28 and 35; NASA GD and T Basics, slide 23",
+      "startValue": 0.2
+    }
+  ]
+}

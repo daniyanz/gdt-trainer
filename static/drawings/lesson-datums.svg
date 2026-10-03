@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 275" role="img" aria-label="Block with datum feature A on the bottom and datum feature B on the left side">
+<title>Block with datum feature A on the bottom and datum feature B on the left side</title>
+<style>
+.d-part{fill:#e6edf5;stroke:#1d2733;stroke-width:1.8}
+.d-ln{stroke:#1d2733;stroke-width:1.4;fill:none}
+.d-thin{stroke:#1d2733;stroke-width:1;fill:none}
+.d-center{stroke:#1d2733;stroke-width:0.9;fill:none;stroke-dasharray:14 3 3 3}
+.d-zone{stroke:#b42318;stroke-width:1.4;fill:none;stroke-dasharray:6 4}
+.d-zonefill{fill:#b42318;fill-opacity:0.08;stroke:none}
+.d-txt{font-family:Arial,Helvetica,sans-serif;font-size:13px;fill:#1d2733}
+.d-small{font-family:Arial,Helvetica,sans-serif;font-size:11px;fill:#4a5868}
+.d-fill{fill:#1d2733;stroke:none}
+.d-box{fill:#fff;stroke:#1d2733;stroke-width:1.3}
+</style>
+<polygon points="110.0,70.0 330.0,70.0 330.0,170.0 326.3,170.8 322.7,171.5 319.0,172.1 315.3,172.6 311.7,172.9 308.0,173.0 304.3,172.9 300.7,172.6 297.0,172.1 293.3,171.5 289.7,170.8 286.0,170.0 282.3,169.2 278.7,168.5 275.0,167.9 271.3,167.4 267.7,167.1 264.0,167.0 260.3,167.1 256.7,167.4 253.0,167.9 249.3,168.5 245.7,169.2 242.0,170.0 238.3,170.8 234.7,171.5 231.0,172.1 227.3,172.6 223.7,172.9 220.0,173.0 216.3,172.9 212.7,172.6 209.0,172.1 205.3,171.5 201.7,170.8 198.0,170.0 194.3,169.2 190.7,168.5 187.0,167.9 183.3,167.4 179.7,167.1 176.0,167.0 172.3,167.1 168.7,167.4 165.0,167.9 161.3,168.5 157.7,169.2 154.0,170.0 150.3,170.8 146.7,171.5 143.0,172.1 139.3,172.6 135.7,172.9 132.0,173.0 128.3,172.9 124.7,172.6 121.0,172.1 117.3,171.5 113.7,170.8 110.0,170.0" class="d-part"/><line x1="70" y1="173" x2="370" y2="173" class="d-zone"/><polygon points="243,173 257,173 250,184" class="d-fill"/><line x1="250" y1="184" x2="250" y2="198" class="d-thin"/><rect x="239" y="198" width="22" height="22" class="d-box"/><text x="250" y="213.5" class="d-txt" text-anchor="middle">A</text><polygon points="110,113 110,127 99,120" class="d-fill"/><line x1="99" y1="120" x2="85" y2="120" class="d-thin"/><rect x="63" y="109" width="22" height="22" class="d-box"/><text x="74" y="124.5" class="d-txt" text-anchor="middle">B</text><text x="20" y="225" class="d-small" text-anchor="start">datum feature A:</text><text x="20" y="239" class="d-small" text-anchor="start">the real, uneven surface</text><polyline points="100,215 138,174" class="d-thin"/><polygon points="138.0,174.0 135.6,181.6 130.6,177.0" class="d-fill"/><text x="410" y="202" class="d-small" text-anchor="end">datum A: the perfect plane</text><text x="410" y="216" class="d-small" text-anchor="end">it rests on (dashed red)</text><text x="210" y="262" class="d-small" text-anchor="middle">A is primary, B is secondary (unevenness exaggerated)</text>
+</svg>

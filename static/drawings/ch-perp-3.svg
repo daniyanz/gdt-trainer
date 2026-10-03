@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" role="img" aria-label="Block with datum A on the bottom; the frame on the right face has no datum reference">
+<title>Block with datum A on the bottom; the frame on the right face has no datum reference</title>
+<style>
+.d-part{fill:#e6edf5;stroke:#1d2733;stroke-width:1.8}
+.d-ln{stroke:#1d2733;stroke-width:1.4;fill:none}
+.d-thin{stroke:#1d2733;stroke-width:1;fill:none}
+.d-center{stroke:#1d2733;stroke-width:0.9;fill:none;stroke-dasharray:14 3 3 3}
+.d-zone{stroke:#b42318;stroke-width:1.4;fill:none;stroke-dasharray:6 4}
+.d-zonefill{fill:#b42318;fill-opacity:0.08;stroke:none}
+.d-txt{font-family:Arial,Helvetica,sans-serif;font-size:13px;fill:#1d2733}
+.d-small{font-family:Arial,Helvetica,sans-serif;font-size:11px;fill:#4a5868}
+.d-fill{fill:#1d2733;stroke:none}
+.d-box{fill:#fff;stroke:#1d2733;stroke-width:1.3}
+</style>
+<rect x="110" y="80" width="150" height="130" class="d-part"/><polygon points="178,210 192,210 185,221" class="d-fill"/><line x1="185" y1="221" x2="185" y2="235" class="d-thin"/><rect x="174" y="235" width="22" height="22" class="d-box"/><text x="185" y="250.5" class="d-txt" text-anchor="middle">A</text><rect x="290" y="40" width="28" height="24" class="d-box"/><line x1="296.0" y1="58.0" x2="312.0" y2="58.0" class="d-ln"/><line x1="304.0" y1="58.0" x2="304.0" y2="45.0" class="d-ln"/><rect x="318" y="40" width="38" height="24" class="d-box"/><text x="337.0" y="56.5" class="d-txt" text-anchor="middle">0.1</text><polyline points="310,64 310,140 262,140" class="d-thin"/><polygon points="262.0,140.0 269.3,136.6 269.3,143.4" class="d-fill"/>
+</svg>

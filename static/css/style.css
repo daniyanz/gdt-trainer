@@ -1,0 +1,279 @@
+/* GD&T Trainer styles: light background, dark text, blue/gray accents. */
+
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --ink: #1d2733;
+  --muted: #4f5d6d;
+  --line: #d5dde6;
+  --accent: #1f5f99;
+  --accent-soft: #e3edf7;
+  --good: #1a7f37;
+  --good-soft: #e6f4ea;
+  --bad: #b42318;
+  --bad-soft: #fdecea;
+  --warn: #8a5a00;
+  --warn-soft: #fff4dc;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+a { color: var(--accent); }
+
+/* Visible keyboard focus everywhere (accessibility requirement). */
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #f2a900;
+  outline-offset: 2px;
+}
+
+/* ---------- Header and navigation ---------- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+}
+.brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand span { color: var(--accent); }
+.nav { display: flex; flex-wrap: wrap; gap: 4px; }
+.nav a {
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav a:hover { background: var(--accent-soft); color: var(--accent); }
+.nav a[aria-current="page"] { background: var(--accent); color: #fff; }
+
+/* ---------- Page layout ---------- */
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+h1 { font-size: 1.8rem; margin: 0 0 8px; line-height: 1.25; }
+h2 { font-size: 1.3rem; margin: 28px 0 10px; }
+h3 { font-size: 1.1rem; margin: 18px 0 8px; }
+.lead { color: var(--muted); font-size: 1.05rem; margin-top: 0; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.mode-card { display: flex; flex-direction: column; gap: 6px; }
+.mode-card h2 { margin: 0; }
+.mode-card p { margin: 0 0 8px; color: var(--muted); flex: 1; }
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.site-footer .inner { max-width: 1040px; margin: 0 auto; padding: 16px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { filter: brightness(1.1); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.secondary { background: var(--surface); color: var(--accent); }
+.btn.danger { background: var(--bad); border-color: var(--bad); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+
+/* ---------- Answer options (lessons and challenges) ---------- */
+.options { display: grid; gap: 8px; margin: 12px 0; }
+.option {
+  text-align: left;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.option:hover:not(:disabled) { border-color: var(--accent); }
+.option.selected { border-color: var(--accent); background: var(--accent-soft); }
+.option.correct { border-color: var(--good); background: var(--good-soft); }
+.option.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.option:disabled { cursor: default; }
+/* Text markers so correct/incorrect never relies on colour alone. */
+.option.correct::before { content: "✓ "; font-weight: 700; color: var(--good); }
+.option.wrong::before { content: "✗ "; font-weight: 700; color: var(--bad); }
+
+/* ---------- Feedback boxes ---------- */
+.feedback {
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  border-left: 5px solid;
+}
+.feedback.good { background: var(--good-soft); border-color: var(--good); }
+.feedback.bad { background: var(--bad-soft); border-color: var(--bad); }
+.feedback.info { background: var(--accent-soft); border-color: var(--accent); }
+.feedback.warn { background: var(--warn-soft); border-color: var(--warn); }
+.feedback p { margin: 4px 0; }
+.feedback .title { font-weight: 700; }
+
+.source-line { font-size: 0.9rem; color: var(--muted); margin-top: 10px; }
+.tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+/* ---------- Drawings ---------- */
+.drawing {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+.drawing svg, .drawing img { width: 100%; height: auto; display: block; max-height: 420px; }
+
+/* Clickable features in challenge drawings. The SVG files make them
+   invisible by default; these rules show hover, selection and results. */
+.drawing .target { cursor: pointer; }
+.drawing line.target:hover, .drawing line.target:focus { stroke: rgba(31, 95, 153, 0.30); }
+.drawing circle.target:hover, .drawing circle.target:focus { fill: rgba(31, 95, 153, 0.20); }
+.drawing line.target.selected { stroke: rgba(31, 95, 153, 0.65); }
+.drawing circle.target.selected { fill: rgba(31, 95, 153, 0.40); }
+.drawing line.target.is-correct { stroke: rgba(26, 127, 55, 0.65); }
+.drawing circle.target.is-correct { fill: rgba(26, 127, 55, 0.40); }
+.drawing line.target.is-wrong { stroke: rgba(180, 35, 24, 0.55); }
+.drawing circle.target.is-wrong { fill: rgba(180, 35, 24, 0.35); }
+.drawing .target:focus { outline: none; }
+.drawing.locked .target { cursor: default; pointer-events: none; }
+
+.selection-note { font-weight: 600; margin: 8px 0 0; }
+
+/* ---------- Learn mode ---------- */
+.learn-layout { display: grid; grid-template-columns: 240px 1fr; gap: 20px; align-items: start; }
+.lesson-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.lesson-list a {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.lesson-list a[aria-current="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.lesson-list .done { color: var(--good); white-space: nowrap; }
+.lesson-head { display: flex; gap: 14px; align-items: center; }
+.lesson-head img { width: 56px; height: 56px; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+.lesson-head .symbol-name { color: var(--muted); margin: 0; }
+.mistake { background: var(--warn-soft); border-left: 5px solid var(--warn); padding: 10px 14px; border-radius: 8px; }
+.quiz-question { margin-top: 16px; }
+
+/* ---------- Challenge mode ---------- */
+.question-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 18px; }
+.question-nav button {
+  min-width: 40px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+}
+.question-nav button[aria-current="true"] { border-color: var(--accent); background: var(--accent); color: #fff; }
+.question-nav button.solved::after { content: " ✓"; }
+.challenge-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: start; }
+.ai-box { white-space: pre-wrap; }
+
+/* ---------- Visualize mode ---------- */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 16px; }
+.tabs button {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+}
+.tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.slider-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0; }
+.slider-row input[type="range"] { flex: 1; min-width: 200px; accent-color: var(--accent); }
+.slider-value { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 6.5em; }
+.verdict { font-size: 1.1rem; font-weight: 700; }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 10px; }
+.readout div { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+.readout b { display: block; font-size: 1.1rem; }
+
+/* ---------- Progress page ---------- */
+table { width: 100%; border-collapse: collapse; background: var(--surface); }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: 0.9rem; color: var(--muted); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.status { font-weight: 700; white-space: nowrap; }
+.status.learned { color: var(--good); }
+.status.needs-practice { color: var(--bad); }
+.status.in-progress { color: var(--accent); }
+.status.not-started { color: var(--muted); }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.stat b { display: block; font-size: 1.6rem; }
+.stat span { color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Sources page ---------- */
+.sources-table td, .sources-table th { vertical-align: top; font-size: 0.95rem; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .learn-layout, .challenge-layout { grid-template-columns: 1fr; }
+  h1 { font-size: 1.5rem; }
+}

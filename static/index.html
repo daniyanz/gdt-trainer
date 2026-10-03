@@ -4,15 +4,86 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GD&amp;T Trainer</title>
-  <style>
-    body { font-family: system-ui, sans-serif; background: #f7f9fb; color: #1d2733;
-           max-width: 640px; margin: 0 auto; padding: 48px 16px; line-height: 1.5; }
-    h1 { color: #1f4e79; }
-  </style>
+  <link rel="icon" href="drawings/sym-position.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>GD&amp;T Trainer</h1>
-  <p>Practice GD&amp;T concepts and learn to read engineering drawings.</p>
-  <p>This site is under construction.</p>
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="/" aria-current="page">GD&amp;T <span>Trainer</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="learn.html">Learn</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="visualize.html">Visualize</a>
+        <a href="progress.html">Progress</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Learn to read GD&amp;T on engineering drawings</h1>
+    <p class="lead">
+      Short lessons, drawing challenges and interactive tolerance zones for students and makers
+      who need to read or order machined parts. Covers datums, flatness, perpendicularity and position.
+    </p>
+
+    <div class="grid-3">
+      <section class="card mode-card">
+        <h2>Learn</h2>
+        <p>Four short lessons, each with the symbol, a diagram, a common mistake and a quick quiz.</p>
+        <a class="btn" href="learn.html">Start learning</a>
+      </section>
+      <section class="card mode-card">
+        <h2>Challenge</h2>
+        <p>Twelve drawing questions: read symbols, find the controlled feature and spot errors.</p>
+        <a class="btn" href="challenge.html">Try a challenge</a>
+      </section>
+      <section class="card mode-card">
+        <h2>Visualize</h2>
+        <p>Move a slider to change a tolerance and watch the zone grow or shrink until a part passes.</p>
+        <a class="btn" href="visualize.html">Open the visualizer</a>
+      </section>
+    </div>
+
+    <h2>Your progress</h2>
+    <div id="summary" class="card">Loading…</div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <a href="sources.html">Sources, credits and privacy</a>.
+      Progress is saved only in this browser.
+      An independent student project, not affiliated with or endorsed by NASA, NIST, ASME or ISO.
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/storage.js"></script>
+  <script>
+    // Small progress summary for the home page.
+    (async function () {
+      const box = document.getElementById("summary");
+      try {
+        const [lessonData, challengeData] = await Promise.all([
+          fetchJSON("data/lessons.json"),
+          fetchJSON("data/challenges.json"),
+        ]);
+        const stats = computeStats(challengeData.challenges, challengeData.concepts);
+        const lessonsDone = lessonData.lessons.filter(function (l) { return stats.lessonsCompleted[l.id]; }).length;
+        const weak = Object.keys(stats.perConcept)
+          .filter(function (k) { return stats.perConcept[k].status === "needs-practice"; })
+          .map(function (k) { return challengeData.concepts[k]; });
+        box.innerHTML =
+          "<p><b>" + lessonsDone + " of " + lessonData.lessons.length + "</b> lessons completed. " +
+          "<b>" + stats.solvedQuestions + " of " + stats.totalQuestions + "</b> challenges solved.</p>" +
+          (weak.length
+            ? "<p>Needs more practice: <b>" + weak.map(escapeHTML).join(", ") + "</b>.</p>"
+            : "") +
+          '<a href="progress.html">See full progress</a>';
+      } catch (error) {
+        showLoadError(box, error);
+      }
+    })();
+  </script>
 </body>
 </html>

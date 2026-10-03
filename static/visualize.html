@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visualize · GD&amp;T Trainer</title>
+  <link rel="icon" href="drawings/sym-position.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="/">GD&amp;T <span>Trainer</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="learn.html">Learn</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="visualize.html" aria-current="page">Visualize</a>
+        <a href="progress.html">Progress</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Tolerance visualizer</h1>
+    <p class="lead">Move the slider to change the tolerance and watch the zone (dashed red) grow or shrink.
+      Errors are drawn much larger than real life so you can see them.</p>
+
+    <div class="tabs" role="tablist" id="tabs"></div>
+
+    <section class="card">
+      <p id="description"></p>
+      <div class="slider-row">
+        <label for="tolerance"><b>Tolerance</b></label>
+        <input type="range" id="tolerance" min="0.01" max="1" step="0.01" value="0.2">
+        <output id="tolerance-value" class="slider-value" for="tolerance">0.20 mm</output>
+      </div>
+      <div class="drawing" id="viz"></div>
+      <div id="verdict" class="feedback" aria-live="polite"></div>
+      <div class="readout" id="readout"></div>
+      <p class="source-line" id="source"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <a href="sources.html">Sources, credits and privacy</a>.
+      Progress is saved only in this browser.
+      An independent student project, not affiliated with or endorsed by NASA, NIST, ASME or ISO.
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/visualize.js"></script>
+</body>
+</html>
