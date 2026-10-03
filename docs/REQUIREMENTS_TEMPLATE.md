@@ -173,6 +173,7 @@ The user shows understanding of a concept across multiple different questions th
 | Backend | Small Python Flask server that serves both the pages and the API in one app |
 | Storage | localStorage |
 | Hosting | Render free tier. The server sleeps when idle, so the first visit can be slow. This is accepted for a class project. |
+| Render deploy contract | The Flask object must be named `app` in `app.py` at the repo root. `requirements.txt` at the repo root must list `flask`, `gunicorn`, `openai` and `python-dotenv`. Render build command: `pip install -r requirements.txt`. Start command: `gunicorn app:app`. The key is read from the `OPENAI_API_KEY` environment variable. |
 
 **5.2 Content format**
 - JSON files in the repo
