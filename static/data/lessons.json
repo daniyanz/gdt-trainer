@@ -102,7 +102,7 @@
         "Position always references datums, which say where the measurement starts."
       ],
       "diagram": "drawings/lesson-position.svg",
-      "diagramAlt": "A plate with a hole located by boxed basic dimensions 30 and 20 from datums B and C, a position frame, and a magnified circular zone.",
+      "diagramAlt": "Top and front views of a plate. An 8 mm hole is located by boxed basic dimensions 25 and 20 from datums B and C, with a position frame referencing A, B and C, and a magnified circular zone. Datum A is the bottom face, shown in the front view.",
       "commonMistake": "Locating a hole with ± dimensions while also giving it a position tolerance. Position needs basic (boxed) dimensions to define the true position.",
       "sources": "Berez, Fundamentals of GD&T Part I, slides 27, 28, 35 and 43. NASA GD and T Basics, slides 16 and 23.",
       "quiz": [

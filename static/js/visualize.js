@@ -14,6 +14,7 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 let modes = [];
 let activeMode = null;
+let lastResult = null; // latest drawing result, shared with TutorBot
 const slider = document.getElementById("tolerance");
 
 // ---------- Tiny SVG helpers ----------
@@ -86,7 +87,7 @@ function drawFlatness(tol) {
   const svg = newSvg("Side view of a wavy top surface between two dashed zone lines");
   const outline = samples.map(function (s) { return [toX(s.t), toY(s.dev)]; });
   outline.push([x1, bottom], [x0, bottom]);
-  svg.appendChild(el("polygon", { points: pointsAttr(outline), fill: "#e6edf5", stroke: INK, "stroke-width": 2 }));
+  svg.appendChild(el("polygon", { points: pointsAttr(outline), fill: "#e7e9e6", stroke: INK, "stroke-width": 2 }));
 
   // Zone lines: centre line is mid + slope*t, then +/- half the tolerance.
   [-tol / 2, tol / 2].forEach(function (offset) {
@@ -129,7 +130,7 @@ function drawPerpendicularity(tol) {
   const svg = newSvg("Front view of a block on datum A with two vertical dashed zone lines around its right face");
   const outline = [[left, top]].concat(samples.slice().reverse().map(function (p) { return [toX(p.dev), toY(p.s)]; }));
   outline.push([left, datumY]);
-  svg.appendChild(el("polygon", { points: pointsAttr(outline), fill: "#e6edf5", stroke: INK, "stroke-width": 2 }));
+  svg.appendChild(el("polygon", { points: pointsAttr(outline), fill: "#e7e9e6", stroke: INK, "stroke-width": 2 }));
   svg.appendChild(el("line", { x1: 90, y1: datumY, x2: 600, y2: datumY, stroke: INK, "stroke-width": 1, "stroke-dasharray": "2 3" }));
   svg.appendChild(datumSymbol(230, datumY, "A"));
 
@@ -153,16 +154,16 @@ const AXIS_OFFSET = { x: 0.18, y: 0.12 };
 function drawPosition(tol) {
   const svg = newSvg("Plate with a hole, and a magnified view of the circular position zone around the true position");
   // Left: small overview of the plate.
-  svg.appendChild(el("rect", { x: 30, y: 80, width: 200, height: 150, fill: "#e6edf5", stroke: INK, "stroke-width": 2 }));
+  svg.appendChild(el("rect", { x: 30, y: 80, width: 200, height: 150, fill: "#e7e9e6", stroke: INK, "stroke-width": 2 }));
   svg.appendChild(el("circle", { cx: 130, cy: 150, r: 22, fill: "#fff", stroke: INK, "stroke-width": 2 }));
-  svg.appendChild(el("rect", { x: 100, y: 120, width: 60, height: 60, fill: "none", stroke: "#1f5f99", "stroke-dasharray": "4 3" }));
-  svg.appendChild(el("line", { x1: 160, y1: 120, x2: 330, y2: 40, stroke: "#1f5f99", "stroke-dasharray": "4 3" }));
-  svg.appendChild(el("line", { x1: 160, y1: 180, x2: 330, y2: 300, stroke: "#1f5f99", "stroke-dasharray": "4 3" }));
+  svg.appendChild(el("rect", { x: 100, y: 120, width: 60, height: 60, fill: "none", stroke: "#c2410c", "stroke-dasharray": "4 3" }));
+  svg.appendChild(el("line", { x1: 160, y1: 120, x2: 330, y2: 40, stroke: "#c2410c", "stroke-dasharray": "4 3" }));
+  svg.appendChild(el("line", { x1: 160, y1: 180, x2: 330, y2: 300, stroke: "#c2410c", "stroke-dasharray": "4 3" }));
   svg.appendChild(label(130, 260, "plate (top view)"));
 
   // Right: magnified view around the true position.
   const cx = 470, cy = 170, k = 150; // k: pixels per mm in the magnified view
-  svg.appendChild(el("rect", { x: 330, y: 40, width: 280, height: 260, fill: "#fff", stroke: "#1f5f99" }));
+  svg.appendChild(el("rect", { x: 330, y: 40, width: 280, height: 260, fill: "#fff", stroke: "#c2410c" }));
   svg.appendChild(el("line", { x1: 340, y1: cy, x2: 600, y2: cy, stroke: INK, "stroke-dasharray": "14 3 3 3" }));
   svg.appendChild(el("line", { x1: cx, y1: 50, x2: cx, y2: 290, stroke: INK, "stroke-dasharray": "14 3 3 3" }));
   const r = (tol / 2) * k;
@@ -187,6 +188,7 @@ function update() {
   document.getElementById("tolerance-value").textContent = (activeMode.id === "position" ? "Ø" : "") + mm(tol);
 
   const result = DRAWERS[activeMode.id](tol);
+  lastResult = result;
   const viz = document.getElementById("viz");
   viz.innerHTML = "";
   viz.appendChild(result.svg);
@@ -233,5 +235,17 @@ async function startVisualizer() {
   slider.addEventListener("input", update); // redraw live while dragging
   selectMode(modes[0].id);
 }
+
+// Tells TutorBot (tutorbot.js) which example and slider value are on screen.
+window.getTutorContext = function () {
+  if (!activeMode) return { page: "visualize", label: "Visualizer" };
+  return {
+    page: "visualize",
+    mode: activeMode.id,
+    tolerance: Number(slider.value),
+    smallestZone: lastResult ? lastResult.error : null,
+    label: "Visualizer: " + activeMode.title + " at " + Number(slider.value).toFixed(2) + " mm",
+  };
+};
 
 startVisualizer();

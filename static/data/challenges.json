@@ -80,7 +80,7 @@
       ],
       "answer": "a",
       "hint": "A circle with crosshairs, like a target: where should the hole's center be?",
-      "explanation": "This is the position symbol, a location control. With Ø0.2, the hole's axis must stay inside a 0.2 mm diameter cylinder at its true position, measured from datums A and B.",
+      "explanation": "This is the position symbol, a location control. With Ø0.2, the hole's axis must stay inside a 0.2 mm diameter cylinder at its true position. The true position is 25 and 20 from datums B and C, and the frame references datums A, B and C.",
       "source": "Berez, Part I, slides 27, 28 and 35"
     },
     {
@@ -143,7 +143,7 @@
       "type": "applies-to",
       "format": "click",
       "drawing": "drawings/ch-pos-2.svg",
-      "question": "Click the feature this position tolerance applies to.",
+      "question": "Click the feature that the Ø0.1 position tolerance applies to.",
       "targets": {
         "hole-left": "Left hole",
         "hole-right": "Right hole",
@@ -151,8 +151,8 @@
         "right": "Right edge"
       },
       "answer": "hole-right",
-      "hint": "Follow the leader line from the frame.",
-      "explanation": "The leader arrow ends on the right hole, so the right hole's axis must lie within the Ø0.1 zone. The left hole is not controlled by this frame.",
+      "hint": "Find the frame with Ø0.1, then follow the leader under it.",
+      "explanation": "The Ø0.1 frame sits under the Ø10 size note, and its leader ends on the right hole. So the right hole's axis must lie within a Ø0.1 zone. The left hole has its own, looser Ø0.3 frame.",
       "source": "Berez, Part I, slides 35 and 39"
     },
     {
@@ -223,8 +223,8 @@
         {"id": "d", "text": "The hole needs a flatness callout"}
       ],
       "answer": "a",
-      "hint": "Compare with the Position lesson diagram. How are the 30 and 20 drawn there?",
-      "explanation": "Basic dimensions define the true position, the exact center of the tolerance zone. The 30 and 20 should be boxed basic dimensions. NASA's Goddard drawing manual also notes that combining positional tolerancing with plus and minus methods for basic-dimensioned hole patterns is discontinued.",
+      "hint": "Compare with the Position lesson diagram. How are the 25 and 20 drawn there?",
+      "explanation": "Basic dimensions define the true position, the exact center of the tolerance zone. The 25±0.1 and 20±0.1 should be boxed basic dimensions, 25 and 20. NASA's Goddard drawing manual also notes that combining positional tolerancing with plus and minus methods for basic-dimensioned hole patterns is discontinued.",
       "source": "NASA GD and T Basics, slide 23; NASA GSFC-X-673-64-1F, PDF page 119"
     }
   ]

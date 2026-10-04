@@ -5,6 +5,13 @@
  * practice, a per-challenge score list, and a Reset button.
  */
 
+let weakForTutor = [];
+
+// Tells TutorBot (tutorbot.js) which concepts need more practice.
+window.getTutorContext = function () {
+  return { page: "progress", weakConcepts: weakForTutor, label: "Progress page" };
+};
+
 async function showProgress() {
   const box = document.getElementById("progress");
   let lessonData, challengeData;
@@ -22,6 +29,7 @@ async function showProgress() {
   const stats = computeStats(challengeData.challenges, concepts);
   const lessonsDone = lessonData.lessons.filter(function (l) { return stats.lessonsCompleted[l.id]; });
   const weak = Object.keys(concepts).filter(function (k) { return stats.perConcept[k].status === "needs-practice"; });
+  weakForTutor = weak;
 
   // How many challenge questions exist for each concept.
   const questionsPerConcept = {};

@@ -131,6 +131,7 @@
       <li>Anthropic Claude, for planning and coding help</li>
       <li>Open-source software: Flask by the Pallets Projects, Gunicorn, the OpenAI Python library and python-dotenv</li>
       <li>Render, for hosting</li>
+      <li>IBM Plex fonts by IBM, used under the SIL Open Font License 1.1 and hosted with this site</li>
     </ul>
 
     <h2 id="privacy">Privacy</h2>
@@ -139,8 +140,11 @@
         and is never sent to a server or database. The Reset button on the Progress page deletes it.</li>
       <li>When you press "Explain my mistake (AI)", the site sends only the question and the answer you chose to OpenAI, through this
         site's server. No name, email or other personal information is sent.</li>
-      <li>To keep costs down, the server counts AI requests per IP address for the current day. This count is kept in memory only and is
-        not stored.</li>
+      <li>When you chat with TutorBot, the site sends your messages and a short description of the page you are on (for example, which
+        lesson or question) to OpenAI, through this site's server. Please don't type personal information into the chat. The conversation
+        is kept only in this browser tab and is forgotten when you close it.</li>
+      <li>To keep costs down, the server counts AI requests per IP address for the current day (20 wrong-answer explanations and 30
+        TutorBot messages). This count is kept in memory only and is not stored.</li>
     </ul>
 
     <h2>Disclaimer</h2>
@@ -152,10 +156,18 @@
 
   <footer class="site-footer">
     <div class="inner">
-      <a href="sources.html">Sources, credits and privacy</a>.
-      Progress is saved only in this browser.
-      An independent student project, not affiliated with or endorsed by NASA, NIST, ASME or ISO.
+      <div class="title-block" aria-label="Site information">
+        <div><span>Project</span><b>GD&amp;T Trainer</b></div>
+        <div><span>Units</span><b>mm</b></div>
+        <div><span>Scale</span><b>Not to scale</b></div>
+        <div><span>References</span><a href="sources.html">Sources &amp; credits</a></div>
+      </div>
+      Progress is saved only in this browser. An independent student project, not affiliated with or
+      endorsed by NASA, NIST, ASME or ISO. <a href="sources.html#privacy">Privacy</a>.
     </div>
   </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/tutorbot.js"></script>
 </body>
 </html>

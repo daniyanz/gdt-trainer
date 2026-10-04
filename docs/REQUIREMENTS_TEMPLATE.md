@@ -145,16 +145,35 @@ The user shows understanding of a concept across multiple different questions th
 - [ ] The progress page displays the user's overall score and per-concept performance.
 - [ ] The user can reset all locally stored progress.
 
+### 3.5 TutorBot (floating chat assistant)
+
+Added 2026-10-04 at the author's request.
+
+| Item | Decision |
+|---|---|
+| Where | A floating "Ask TutorBot" button on every page. It opens a chat panel. |
+| Page awareness | TutorBot is told which page the user is on and what they are looking at: the current lesson, challenge question, visualizer mode and slider value, or weak concepts on the Progress page. |
+| What it may answer | GD&T questions covered by this site's lessons and challenges, and how to use the site. Answers use only the site's checked content. Anything beyond it is answered with "not covered by this site's approved sources". |
+| Unanswered challenges | TutorBot gives hints but does not reveal or confirm the answer until the user has pressed Check. |
+| Conversation | Kept for the browser tab session, so it follows the user between pages. A Clear button empties it. |
+
+**Acceptance criteria**
+- [ ] The TutorBot button appears on every page and works with mouse and keyboard.
+- [ ] TutorBot's replies reflect the page and item the user is viewing.
+- [ ] On an unanswered challenge, TutorBot does not give away the answer.
+- [ ] Questions outside the approved content get a "not covered" reply instead of invented rules.
+- [ ] If the AI is unavailable or the daily limit is reached, the chat says so and the rest of the site keeps working.
+
 ## 4. API and AI Requirements
 
 ### 4.1 OpenAI API
 
 | Item | Your answer |
 |---|---|
-| What OpenAI is used for | [x] Explaining wrong answers [ ] Generating new questions [ ] Chat tutor "ask a question" box [ ] Grading free-text answers [ ] Not used in v1 |
+| What OpenAI is used for | [x] Explaining wrong answers [ ] Generating new questions [x] Chat tutor: the floating TutorBot (Section 3.5) [ ] Grading free-text answers [ ] Not used in v1 |
 | Model | Small, low-cost OpenAI model suitable for short educational explanations |
 | Monthly budget limit | $5 |
-| Max requests per user per day | 20 per IP address per day, counted in the Flask server's memory. The count resets if the server restarts, which is acceptable. The $5 OpenAI project budget is the real hard cap. |
+| Max requests per user per day | 20 wrong-answer explanations and 30 TutorBot messages per IP address per day, counted in the Flask server's memory. The count resets if the server restarts, which is acceptable. The $5 OpenAI project budget is the real hard cap. |
 | What happens if the API fails, the limit is reached, or the budget runs out | Show the pre-written explanation instead. The site must work fully without OpenAI. |
 
 **Important:** the OpenAI API key must never be in browser code. It needs a small server or serverless function (see 5.1). Confirm you understand this:
@@ -205,8 +224,8 @@ The user shows understanding of a concept across multiple different questions th
 
 | Item | Your answer |
 |---|---|
-| Overall look | Clean, technical, modern engineering style; simple enough for a beginner learning tool |
-| Colour preferences | Light background with dark text and a limited blue/gray accent palette |
+| Overall look | Engineering drawing sheet style (changed 2026-10-04 at the author's request): drafting-grid background, cards framed like drawing sheets, footer styled as a title block, condensed technical headings and monospace numbers. Still simple enough for a beginner. |
+| Colour preferences | Off-white drafting paper with dark text, graphite header and panels, safety-orange accent. Fonts: IBM Plex, self-hosted (SIL Open Font License). |
 | Dark mode | Later |
 | Main navigation | Top bar with Learn, Challenge, Visualize, and Progress |
 | Home page shows | Short project description, 3 main mode cards, and a small progress summary |
@@ -320,6 +339,7 @@ The Sources page must show everything below. Group B is acknowledged because the
 - Anthropic Claude, for planning and coding help
 - Open-source software: Flask by the Pallets Projects, Gunicorn, the OpenAI Python library and python-dotenv
 - Render, for hosting
+- IBM Plex fonts by IBM, SIL Open Font License 1.1
 
 **Disclaimer to show:** this site is an independent student project. It is not affiliated with or endorsed by any person, institution or company listed above.
 
@@ -330,7 +350,7 @@ The Sources page must show everything below. Group B is acknowledged because the
 | Item | Your answer |
 |---|---|
 | Personal data collected | None |
-| Data sent to OpenAI | Only the challenge/question context and information needed to generate feedback. No name, email, nickname, or other personal information is sent. |
+| Data sent to OpenAI | Only the challenge/question context and information needed to generate feedback, plus the text of TutorBot messages the user types. No name, email, nickname, or other personal information is collected. The chat panel reminds users not to type personal information. |
 | Privacy note shown on the site? | Yes |
 User progress data is stored locally in the browser and is not transmitted to a remote database.
 

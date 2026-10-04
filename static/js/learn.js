@@ -120,4 +120,11 @@ function renderQuiz(lesson) {
   });
 }
 
+// Tells TutorBot (tutorbot.js) which lesson is on screen.
+window.getTutorContext = function () {
+  if (!lessons.length) return { page: "learn", label: "Learn mode" };
+  const lesson = lessons[currentLessonIndex()];
+  return { page: "learn", lessonId: lesson.id, label: "Lesson: " + lesson.title };
+};
+
 startLearn();

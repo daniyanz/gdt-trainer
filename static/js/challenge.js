@@ -247,4 +247,18 @@ function showAIFallback(out, reason) {
     "<p>" + escapeHTML(reason) + " Please use the checked explanation above.</p></div>";
 }
 
+// Tells TutorBot (tutorbot.js) which question is on screen and whether
+// it has been answered, so TutorBot never spoils an unanswered question.
+window.getTutorContext = function () {
+  if (!data) return { page: "challenge", label: "Challenge mode" };
+  const c = data.challenges[current];
+  return {
+    page: "challenge",
+    challengeId: c.id,
+    answered: answered,
+    selected: selected,
+    label: "Challenge question " + (current + 1) + (answered ? " (answered)" : ""),
+  };
+};
+
 startChallenges();
