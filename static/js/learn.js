@@ -88,8 +88,10 @@ function renderQuiz(lesson) {
     block.innerHTML =
       "<p><b>" + (qi + 1) + ". " + escapeHTML(q.question) + "</b></p>" +
       '<div class="options">' +
-      q.options.map(function (text, oi) {
-        return '<button type="button" class="option" data-index="' + oi + '">' + escapeHTML(text) + "</button>";
+      // Shuffle the display order; data-index keeps each option's original
+      // position so the answer check still works.
+      shuffled(q.options.map(function (text, oi) { return { text: text, index: oi }; })).map(function (o) {
+        return '<button type="button" class="option" data-index="' + o.index + '">' + escapeHTML(o.text) + "</button>";
       }).join("") +
       "</div><div class=\"quiz-feedback\"></div>";
     quiz.appendChild(block);

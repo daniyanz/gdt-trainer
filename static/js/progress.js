@@ -40,28 +40,29 @@ async function showProgress() {
     const c = stats.perConcept[key];
     return (
       "<tr><td>" + escapeHTML(concepts[key]) + "</td>" +
+      '<td><span class="status ' + c.status + '">' + STATUS_LABELS[c.status] + "</span></td>" +
       "<td>" + c.correct + " / " + c.attempts + "</td>" +
       "<td>" + (c.attempts ? percent(c.accuracy) : "–") + "</td>" +
-      "<td>" + c.distinctSolved + " of " + questionsPerConcept[key] + "</td>" +
-      '<td><span class="status ' + c.status + '">' + STATUS_LABELS[c.status] + "</span></td></tr>"
+      "<td>" + c.distinctSolved + " of " + questionsPerConcept[key] + "</td></tr>"
     );
   }).join("");
 
   const questionRows = challengeData.challenges.map(function (q, i) {
     const s = stats.perQuestion[q.id];
     const last = s.last === null ? "–" : (s.last ? "✓ correct" : "✗ wrong");
+    const first = s.first === null ? "–" : (s.first ? "✓ correct" : "✗ wrong");
     return (
       "<tr><td>" + (i + 1) + "</td><td>" + escapeHTML(concepts[q.concept]) + "</td>" +
       "<td>" + escapeHTML(challengeData.types[q.type]) + "</td>" +
-      "<td>" + s.correct + " / " + s.attempts + "</td><td>" + last + "</td></tr>"
+      "<td>" + first + "</td><td>" + s.correct + " / " + s.attempts + "</td><td>" + last + "</td></tr>"
     );
   }).join("");
 
   box.innerHTML =
     '<div class="stat-grid">' +
       '<div class="stat"><b>' + stats.solvedQuestions + " / " + stats.totalQuestions + "</b><span>challenges solved at least once</span></div>" +
-      '<div class="stat"><b>' + (stats.totalAttempts ? percent(stats.totalCorrect / stats.totalAttempts) : "–") +
-        "</b><span>overall accuracy (" + stats.totalCorrect + " of " + stats.totalAttempts + " answers)</span></div>" +
+      '<div class="stat"><b>' + (stats.firstTries ? percent(stats.firstTryCorrect / stats.firstTries) : "–") +
+        "</b><span>first-try accuracy (" + stats.firstTryCorrect + " of " + stats.firstTries + " questions)</span></div>" +
       '<div class="stat"><b>' + lessonsDone.length + " / " + lessonData.lessons.length + "</b><span>lessons completed</span></div>" +
     "</div>" +
 
@@ -69,12 +70,14 @@ async function showProgress() {
     (weak.length
       ? '<div class="feedback bad"><p>' + weak.map(function (k) { return "<b>" + escapeHTML(concepts[k]) + "</b>"; }).join(", ") +
         '. Review the <a href="learn.html#' + weak[0] + '">lesson</a>, then try those challenges again.</p></div>'
-      : '<p>Nothing yet. A concept is listed here after at least 3 attempts with under 70% correct.</p>') +
+      : '<p>Nothing yet. A concept is listed here after at least 3 questions tried with under 70% right on the first try.</p>') +
 
     "<h2>By concept</h2>" +
-    '<div class="table-wrap"><table><thead><tr><th>Concept</th><th>Correct / attempts</th><th>Accuracy</th>' +
-    "<th>Different questions solved</th><th>Status</th></tr></thead><tbody>" + conceptRows + "</tbody></table></div>" +
-    '<p class="source-line">Learned = 2 different questions solved. Needs more practice = at least 3 attempts and under 70% correct.</p>' +
+    '<div class="table-wrap"><table><thead><tr><th>Concept</th><th>Status</th><th>First-try correct / tried</th>' +
+    "<th>First-try accuracy</th><th>Questions right first try</th></tr></thead><tbody>" + conceptRows + "</tbody></table></div>" +
+    '<p class="source-line">Only your first answer to each question counts here, because a wrong answer reveals the correct one. ' +
+    "Later answers are practice. Learned = 2 different questions right on the first try. " +
+    "Needs more practice = at least 3 questions tried and under 70% right on the first try.</p>" +
 
     "<h2>Lessons</h2>" +
     "<ul>" + lessonData.lessons.map(function (l) {
@@ -84,7 +87,7 @@ async function showProgress() {
     }).join("") + "</ul>" +
 
     "<h2>Score per challenge</h2>" +
-    '<div class="table-wrap"><table><thead><tr><th>#</th><th>Concept</th><th>Type</th><th>Correct / attempts</th><th>Last answer</th></tr></thead><tbody>' +
+    '<div class="table-wrap"><table><thead><tr><th>#</th><th>Concept</th><th>Type</th><th>First try (counts)</th><th>All answers correct / total</th><th>Last answer</th></tr></thead><tbody>' +
     questionRows + "</tbody></table></div>" +
 
     "<h2>Reset</h2>" +

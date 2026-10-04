@@ -54,7 +54,7 @@ async function showQuestion(index) {
   const box = document.getElementById("challenge");
   const answerArea = c.format === "choice"
     ? '<div class="options" role="radiogroup" aria-label="Answer options">' +
-        c.options.map(function (o) {
+        shuffled(c.options).map(function (o) { // new order every time
           return '<button type="button" class="option" role="radio" aria-checked="false" data-id="' + o.id + '">' +
             escapeHTML(o.text) + "</button>";
         }).join("") +

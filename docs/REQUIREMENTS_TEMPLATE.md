@@ -131,7 +131,7 @@ The user shows understanding of a concept across multiple different questions th
 | Item | Your answer |
 |---|---|
 | What is tracked | [x] Score per challenge [x] Correct/incorrect per concept [x] Lessons completed [ ] Time spent |
-| Concept status rules | Only challenge answers count. **Learned:** correct on at least 2 different questions for that concept. **Needs more practice:** at least 3 attempts and under 70% correct. **In progress:** anything else that has been attempted. **Not started:** no attempts. If both Learned and Needs more practice apply, show Needs more practice. |
+| Concept status rules | Only challenge answers count, and only the **first answer to each question** (updated 2026-10-04 after testing: a wrong answer reveals the correct one, so later answers to the same question are practice and do not count). **Learned:** right on the first try on at least 2 different questions for that concept. **Needs more practice:** at least 3 questions tried and under 70% right on the first try. **In progress:** anything else that has been attempted. **Not started:** no attempts. If both Learned and Needs more practice apply, show Needs more practice. |
 | Where data is stored | Browser localStorage |
 | User accounts | None |
 | Progress page shows | Overall challenge score, accuracy per concept, completed lessons, and concepts that need more practice |
@@ -173,7 +173,7 @@ Added 2026-10-04 at the author's request.
 | What OpenAI is used for | [x] Explaining wrong answers [ ] Generating new questions [x] Chat tutor: the floating TutorBot (Section 3.5) [ ] Grading free-text answers [ ] Not used in v1 |
 | Model | Small, low-cost OpenAI model suitable for short educational explanations |
 | Monthly budget limit | $5 |
-| Max requests per user per day | 20 wrong-answer explanations and 30 TutorBot messages per IP address per day, counted in the Flask server's memory. The count resets if the server restarts, which is acceptable. The $5 OpenAI project budget is the real hard cap. |
+| Max requests per user per day | 20 wrong-answer explanations and 30 TutorBot messages per IP address per day, counted in the Flask server's memory. The IP is the last X-Forwarded-For entry, which Render's proxy adds and the browser cannot fake. A site-wide backstop of 300 AI requests per day applies to all visitors together. The count resets if the server restarts, which is acceptable. The $5 OpenAI project budget is the real hard cap. |
 | What happens if the API fails, the limit is reached, or the budget runs out | Show the pre-written explanation instead. The site must work fully without OpenAI. |
 
 **Important:** the OpenAI API key must never be in browser code. It needs a small server or serverless function (see 5.1). Confirm you understand this:

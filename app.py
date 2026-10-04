@@ -28,6 +28,9 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024  # enough for 8 chat messages of 60
 OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4.1-mini")
 # Daily limits per IP address, one counter per feature.
 DAILY_LIMITS = {"explain": 20, "tutor": 30}
+# Backstop for the whole site, all visitors together, so cost stays bounded
+# even if someone finds a way around the per-IP count.
+SITE_DAILY_LIMIT = 300
 
 # The challenge content is loaded once, so the server decides what the
 # question and correct answer are. The browser only sends IDs, which keeps
@@ -53,10 +56,15 @@ _usage_lock = threading.Lock()
 
 
 def client_ip():
-    """Render puts the visitor's real IP first in X-Forwarded-For."""
+    """The visitor's IP address, used only for the daily limits.
+
+    Render's proxy APPENDS the address it received the request from to
+    X-Forwarded-For. Anything earlier in that header came from the browser
+    and can be faked, so the LAST entry is the one we trust.
+    """
     forwarded = request.headers.get("X-Forwarded-For", "")
     if forwarded:
-        return forwarded.split(",")[0].strip()
+        return forwarded.split(",")[-1].strip()
     return request.remote_addr or "unknown"
 
 
@@ -69,9 +77,13 @@ def take_one_request(feature, ip):
         day, count = _usage.get(key, (today, 0))
         if day != today:
             day, count = today, 0
-        if count >= DAILY_LIMITS[feature]:
+        site_day, site_count = _usage.get("site", (today, 0))
+        if site_day != today:
+            site_day, site_count = today, 0
+        if count >= DAILY_LIMITS[feature] or site_count >= SITE_DAILY_LIMIT:
             return False
         _usage[key] = (day, count + 1)
+        _usage["site"] = (site_day, site_count + 1)
         return True
 
 
@@ -96,10 +108,13 @@ def health():
     """Quick check that the server is running.
 
     Reports only WHETHER the OpenAI key is set, never the key itself.
+    "your_ip_as_seen" is the caller's own IP as the daily limits see it; it
+    should match the address shown by any "what is my IP" website.
     """
     return jsonify(
         status="ok",
         openai_key_configured=bool(os.environ.get("OPENAI_API_KEY")),
+        your_ip_as_seen=client_ip(),
     )
 
 
@@ -213,7 +228,9 @@ def page_context(ctx):
     if page == "challenge" and ctx.get("challengeId") in CHALLENGES:
         c = CHALLENGES[ctx["challengeId"]]
         if c["format"] == "choice":
-            choices = "; ".join(f"({o['id']}) {o['text']}" for o in c["options"])
+            # Option letters are left out: the site shuffles the options, so
+            # letters would mean nothing to the student.
+            choices = "; ".join(o["text"] for o in c["options"])
         else:
             choices = "Clickable features: " + "; ".join(c["targets"].values())
         text = (f"The student is in Challenge mode on a "
@@ -233,7 +250,10 @@ def page_context(ctx):
                      f"Source: {c['source']}")
         else:
             text += ("They have NOT answered yet. Do not reveal, confirm or rule out "
-                     "any answer choice. Give hints that point to the relevant idea. "
+                     "any answer choice, and do not say whether a guess fits or matches the "
+                     "rules. If they propose a guess, say you can't check guesses before "
+                     "they press Check answer, then give only the question's own hint, "
+                     "in your own words and no more specific than it. "
                      f"The question's own hint is: {c['hint']}")
         return text
     if page == "visualize" and ctx.get("mode") in VIZ_MODES:
@@ -278,8 +298,9 @@ by this site's approved sources yet, so I can't answer it reliably." Then sugges
 closest real lesson or mode from the list above, if one fits.
 3. Only mention lessons and modes that exist in the list above.
 4. Never invent rules, numbers or standard clauses, and never quote ASME or ISO documents.
-5. On an unanswered challenge, never reveal, confirm or rule out an answer choice, and \
-keep hints no more specific than the question's own hint.
+5. On an unanswered challenge, never reveal, confirm or rule out an answer choice, never \
+say whether a guess "fits", and keep hints no more specific than the question's own hint. \
+Do not restate a rule in a way that points at one specific choice.
 6. Keep answers under 120 words. Plain text only, no markdown.
 """
 

@@ -313,6 +313,8 @@ main > h1::after {
 
 /* ---------- Learn mode ---------- */
 .learn-layout { display: grid; grid-template-columns: 250px 1fr; gap: 20px; align-items: start; }
+/* Let grid columns shrink below their content (wide drawings scroll inside their frame instead). */
+.learn-layout > *, .challenge-layout > * { min-width: 0; }
 .lesson-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: lesson; }
 .lesson-list a {
   display: flex;
@@ -435,6 +437,20 @@ th {
   .title-block { grid-template-columns: 1fr 1fr; }
   .title-block div:nth-child(2) { border-right: none; }
   .title-block div:nth-child(-n+2) { border-bottom: 1px solid #59616a; }
+  /* Drawings stay at a readable size and scroll sideways inside their
+     frame, instead of shrinking until the dimensions are unreadable. */
+  .drawing { overflow-x: auto; padding: 10px; }
+  .drawing svg, .drawing img { min-width: 540px; max-height: none; }
+  .drawing::before {
+    content: "⟷ Swipe sideways to see the whole drawing";
+    display: block;
+    position: sticky;
+    left: 0;
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
 }
 
 /* ---------- TutorBot (floating chat) ---------- */

@@ -18,6 +18,19 @@ async function loadSvgInto(container, url) {
   return container.querySelector("svg");
 }
 
+// Return a shuffled copy of a list (Fisher-Yates shuffle). Used so the
+// correct answer is not always in the same position.
+function shuffled(list) {
+  const copy = list.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy;
+}
+
 // Escape text before inserting it as HTML.
 function escapeHTML(text) {
   const div = document.createElement("div");
