@@ -67,80 +67,54 @@ function resetProgress() {
 /*
  * Work out statistics from the saved attempts.
  *
- * FIRST TRIES ONLY: after a wrong answer the site reveals the correct one,
- * so a later correct answer to the same question could just be memory.
- * Concept statistics therefore use only the FIRST answer to each question.
- * Later answers are kept as practice: they show in the per-challenge table
- * but do not change concept status. Reset starts everything fresh.
+ * SCORE: a question counts as right when its MOST RECENT answer is right.
+ * So retaking a question you got wrong, and getting it right, raises your
+ * score (up to 100%). Earlier answers are never deleted: the charts on the
+ * Progress page replay them to show how the score changed over time.
  *
- * Status rules (requirements document, Section 3.4):
- *  - Only challenge answers count (lesson quizzes do not).
- *  - Learned: first-try correct on at least 2 DIFFERENT questions.
- *  - Needs more practice: at least 3 questions tried and under 70% first-try correct.
- *  - In progress: tried, but neither of the above.
- *  - Not started: nothing tried.
- *  - If both Learned and Needs more practice apply, show Needs more practice.
+ * A concept "needs more practice" while any of its questions is currently wrong.
  */
 function computeStats(challenges, conceptNames) {
   const progress = loadProgress();
-  const perConcept = {};
-  Object.keys(conceptNames).forEach(function (concept) {
-    perConcept[concept] = { attempts: 0, correct: 0 };
-  });
 
   const perQuestion = {};
-  challenges.forEach(function (c) {
-    perQuestion[c.id] = { attempts: 0, correct: 0, last: null, first: null };
+  challenges.forEach(function (c, i) {
+    perQuestion[c.id] = { number: i + 1, concept: c.concept, attempts: 0, last: null };
   });
-
-  // Attempts are stored in the order they happened.
+  // Attempts are stored in the order they happened, so the last one wins.
   progress.attempts.forEach(function (a) {
-    const question = perQuestion[a.id];
-    const concept = perConcept[a.concept];
-    if (!question || !concept) return; // ignore attempts for removed questions
-    const isFirstTry = question.attempts === 0;
-    question.attempts += 1;
-    question.last = a.correct;
-    if (a.correct) question.correct += 1;
-    if (isFirstTry) {
-      question.first = a.correct;
-      concept.attempts += 1;               // one first try per question
-      if (a.correct) concept.correct += 1;
-    }
+    const q = perQuestion[a.id];
+    if (!q) return; // ignore attempts for removed questions
+    q.attempts += 1;
+    q.last = a.correct;
   });
 
+  const perConcept = {};
+  Object.keys(conceptNames).forEach(function (key) {
+    perConcept[key] = { right: 0, total: 0, wrong: [], unanswered: [] };
+  });
+  challenges.forEach(function (c) {
+    const q = perQuestion[c.id];
+    const concept = perConcept[c.concept];
+    concept.total += 1;
+    if (q.last === true) concept.right += 1;
+    else if (q.last === false) concept.wrong.push(q.number);
+    else concept.unanswered.push(q.number);
+  });
   Object.keys(perConcept).forEach(function (key) {
-    const c = perConcept[key];
-    c.accuracy = c.attempts ? c.correct / c.attempts : 0;
-    c.distinctSolved = c.correct; // first-try correct answers are all different questions
-    const learned = c.distinctSolved >= 2;
-    const needsPractice = c.attempts >= 3 && c.accuracy < 0.7;
-    if (c.attempts === 0) c.status = "not-started";
-    else if (needsPractice) c.status = "needs-practice";
-    else if (learned) c.status = "learned";
-    else c.status = "in-progress";
+    perConcept[key].needsPractice = perConcept[key].wrong.length > 0;
   });
 
-  const solvedQuestions = challenges.filter(function (c) {
-    return perQuestion[c.id].correct > 0;
-  }).length;
-  const firstTries = challenges.filter(function (c) { return perQuestion[c.id].first !== null; });
-  const firstTryCorrect = firstTries.filter(function (c) { return perQuestion[c.id].first; }).length;
+  const right = challenges.filter(function (c) { return perQuestion[c.id].last === true; }).length;
+  const answered = challenges.filter(function (c) { return perQuestion[c.id].last !== null; }).length;
 
   return {
-    perConcept: perConcept,
     perQuestion: perQuestion,
-    solvedQuestions: solvedQuestions,
+    perConcept: perConcept,
+    right: right,
+    answered: answered,
     totalQuestions: challenges.length,
-    firstTries: firstTries.length,
-    firstTryCorrect: firstTryCorrect,
+    score: challenges.length ? right / challenges.length : 0,
     lessonsCompleted: progress.lessonsCompleted,
   };
 }
-
-const STATUS_LABELS = {
-  "learned": "Learned",
-  "needs-practice": "Needs more practice",
-  "in-progress": "In progress",
-  "not-started": "Not started",
-};

@@ -19,7 +19,10 @@ async function startChallenges() {
   const box = document.getElementById("challenge");
   try {
     data = await fetchJSON("data/challenges.json");
-    showQuestion(0);
+    // challenge.html?q=7 opens question 7 (used by the Progress page's retake links).
+    const requested = Number(new URLSearchParams(window.location.search).get("q"));
+    const start = requested >= 1 && requested <= data.challenges.length ? requested - 1 : 0;
+    showQuestion(start);
   } catch (error) {
     showLoadError(box, error);
   }
@@ -30,12 +33,14 @@ function renderNav() {
   const stats = computeStats(data.challenges, data.concepts);
   const nav = document.getElementById("question-nav");
   nav.innerHTML = data.challenges.map(function (c, i) {
-    const solved = stats.perQuestion[c.id].correct > 0;
+    // Mark each number with its latest answer: ✓ right or ✗ wrong.
+    const last = stats.perQuestion[c.id].last;
+    const mark = last === true ? "right" : last === false ? "wrong" : "";
     return (
       '<button type="button" data-index="' + i + '"' +
       (i === current ? ' aria-current="true"' : "") +
-      (solved ? ' class="solved"' : "") +
-      ' aria-label="Question ' + (i + 1) + (solved ? ", solved before" : "") + '">' +
+      (mark ? ' class="' + mark + '"' : "") +
+      ' aria-label="Question ' + (i + 1) + (mark ? ", latest answer " + mark : "") + '">' +
       (i + 1) + "</button>"
     );
   }).join("");

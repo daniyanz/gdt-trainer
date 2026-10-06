@@ -35,9 +35,9 @@ The user knows that engineering drawings have multiple views of an object and in
 *Scope note:* general drawing basics such as counterbore symbols and repeated dimensions get no lessons in v1. The approved sources do not support those two rules (Section 7.4), so they are left out of v1. "What is wrong with this drawing?" questions use the source-supported GD&T errors listed in Section 7.4 instead.
 
 **1.5 Success looks like**
-The user shows understanding of a concept across multiple different questions that test the same underlying idea. Simply memorizing the answer to a previous question they got wrong and answering it correctly when the exact same question shows up again does not demonstrate successful learning. Success should be based on whether the user can apply the concept correctly in different contexts or drawing examples.
+*Simplified 2026-10-06 by the author, because the earlier "Learned" rule confused users.*
 
-**Measurable rule:** a concept counts as **learned** when the user has answered at least 2 *different* challenge questions on that concept correctly. Answering the same question correctly twice counts once.
+The user reaches a 100% score: every challenge question's latest answer is right. A user who gets questions wrong follows the "Needs more practice" recommendation, reviews that concept's lesson, retakes those questions and gets them right. Earlier results are never erased, so the score chart shows the improvement, for example from 92% to 100%.
 
 ---
 
@@ -131,19 +131,23 @@ The user shows understanding of a concept across multiple different questions th
 | Item | Your answer |
 |---|---|
 | What is tracked | [x] Score per challenge [x] Correct/incorrect per concept [x] Lessons completed [ ] Time spent |
-| Concept status rules | Only challenge answers count, and only the **first answer to each question** (updated 2026-10-04 after testing: a wrong answer reveals the correct one, so later answers to the same question are practice and do not count). **Learned:** right on the first try on at least 2 different questions for that concept. **Needs more practice:** at least 3 questions tried and under 70% right on the first try. **In progress:** anything else that has been attempted. **Not started:** no attempts. If both Learned and Needs more practice apply, show Needs more practice. |
+| Score rules | *Simplified 2026-10-06 by the author; replaces the earlier Learned / In progress / first-try rules.* **Score** = challenge questions whose **latest** answer is right, out of all 12. Retaking a question replaces its earlier result in the score. Lesson quizzes do not count. **Needs more practice** = every concept with a question whose latest answer is wrong; the recommendation links to that concept's lesson and to the exact questions to retake. History is never erased. |
 | Where data is stored | Browser localStorage |
 | User accounts | None |
-| Progress page shows | Overall challenge score, accuracy per concept, completed lessons, and concepts that need more practice |
+| Progress page shows | Score (percentage and questions right out of 12), questions answered, lessons completed, the "Needs more practice" recommendation with retake links, questions right per concept, and every question's latest answer |
+| Progress charts | Added 2026-10-05 after TA review. Updated 2026-10-06. Charts of the score over time: overall score after every answer (0 to 100%), and one small chart per concept showing how many of its questions are right. Every answer and the score after it are also listed in a "Show the history as a table" view. Plain SVG, no chart library. |
 | Reset progress button? | Yes |
 
 **Acceptance criteria**
 - [ ] Refreshing or reopening the website on the same browser keeps the user's saved progress.
 - [ ] Correct and incorrect answers update the statistics for the relevant GD&T concept.
-- [ ] Concepts below the defined accuracy threshold are listed as "Needs more practice."
-- [ ] Answering the same question correctly twice does not mark a concept as Learned.
-- [ ] The progress page displays the user's overall score and per-concept performance.
+- [ ] Every concept with a currently wrong question is listed under "Needs more practice", with links to its lesson and to each question to retake.
+- [ ] Retaking a wrong question and getting it right raises the score; getting every question right shows 100%.
+- [ ] Earlier results stay in the history: the score chart shows the score before and after a retake.
+- [ ] The progress page displays the user's score and per-concept results.
 - [ ] The user can reset all locally stored progress.
+- [ ] The Progress page shows charts of progress over time, and they update after new answers.
+- [ ] Chart values can be read by hovering, by keyboard (focus a chart and use the arrow keys), and in the table view.
 
 ### 3.5 TutorBot (floating chat assistant)
 

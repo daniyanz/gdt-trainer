@@ -356,8 +356,10 @@ main > h1::after {
 }
 .question-nav button:hover { background: var(--accent-soft); }
 .question-nav button[aria-current="true"] { background: var(--graphite); color: #fff; position: relative; }
-.question-nav button.solved::after { content: " ✓"; color: var(--good); }
-.question-nav button[aria-current="true"].solved::after { color: #7fd99a; }
+.question-nav button.right::after { content: " ✓"; color: var(--good); }
+.question-nav button.wrong::after { content: " ✗"; color: var(--bad); }
+.question-nav button[aria-current="true"].right::after { color: #7fd99a; }
+.question-nav button[aria-current="true"].wrong::after { color: #ff9b8f; }
 .challenge-layout { display: grid; grid-template-columns: 1.15fr 1fr; gap: 20px; align-items: start; }
 .ai-box { white-space: pre-wrap; }
 
@@ -511,3 +513,43 @@ th {
   .tutor-toggle { right: 12px; bottom: 12px; }
   main { padding-bottom: 84px; }
 }
+
+/* ---------- Progress charts ---------- */
+.chart-card {
+  background: var(--sheet);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px 12px;
+  margin-bottom: 14px;
+}
+.chart-card h3 { margin: 0; }
+.chart-sub { margin: 2px 0 8px; color: var(--muted); font-size: 0.9rem; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart svg:focus { outline: none; }
+.chart svg:focus-visible { outline: 3px solid var(--accent-bright); outline-offset: 2px; }
+.chart-tick { font-family: var(--font-mono); font-size: 11px; fill: #555e68; font-variant-numeric: tabular-nums; }
+.chart-end { font-family: var(--font-body); font-size: 13px; font-weight: 600; fill: var(--ink); }
+.chart-multiples { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.chart-multiples .chart-card { margin-bottom: 0; }
+.chart-group-heading { margin: 4px 0 8px; }
+.chart-multiples + .chart-card { margin-top: 14px; }
+.chart-empty { color: var(--muted); }
+.chart-tip {
+  position: absolute;
+  transform: translate(12px, -50%);
+  pointer-events: none;
+  background: var(--sheet);
+  border: 1.5px solid var(--graphite);
+  border-radius: var(--radius);
+  padding: 6px 9px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  box-shadow: 2px 2px 0 rgba(27, 31, 36, 0.15);
+  max-width: 260px;
+  z-index: 5;
+}
+.chart-tip.flip { transform: translate(calc(-100% - 12px), -50%); }
+.chart-tip strong { display: block; font-size: 1rem; color: var(--ink); }
+.chart-tip span { color: var(--muted); }
+.chart-table summary { cursor: pointer; font-weight: 600; margin: 4px 0 10px; }

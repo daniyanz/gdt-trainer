@@ -76,11 +76,11 @@
         const stats = computeStats(challengeData.challenges, challengeData.concepts);
         const lessonsDone = lessonData.lessons.filter(function (l) { return stats.lessonsCompleted[l.id]; }).length;
         const weak = Object.keys(stats.perConcept)
-          .filter(function (k) { return stats.perConcept[k].status === "needs-practice"; })
+          .filter(function (k) { return stats.perConcept[k].needsPractice; })
           .map(function (k) { return challengeData.concepts[k]; });
         box.innerHTML =
           "<p><b>" + lessonsDone + " of " + lessonData.lessons.length + "</b> lessons completed. " +
-          "<b>" + stats.solvedQuestions + " of " + stats.totalQuestions + "</b> challenges solved.</p>" +
+          "Score: <b>" + percent(stats.score) + "</b> (" + stats.right + " of " + stats.totalQuestions + " questions right).</p>" +
           (weak.length
             ? "<p>Needs more practice: <b>" + weak.map(escapeHTML).join(", ") + "</b>.</p>"
             : "") +
