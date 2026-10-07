@@ -35,21 +35,21 @@ function svgEl(name, attrs, text) {
 // ---------- Replay the saved answers ----------
 function buildTimeline(challenges) {
   const info = {};
-  challenges.forEach(function (c, i) { info[c.id] = { number: i + 1, concept: c.concept }; });
-  const latest = {}; // question id -> true/false (most recent answer so far)
+  challenges.forEach(function (c) { info[c.id] = { number: c.slot, concept: c.concept }; });
+  const latest = {}; // question slot -> true/false (most recent answer so far, any version)
 
   return loadProgress().attempts
     .filter(function (a) { return a.id in info && typeof a.time === "number"; })
     .slice()
     .sort(function (a, b) { return a.time - b.time; })
     .map(function (a) {
-      latest[a.id] = a.correct;
+      latest[info[a.id].number] = { correct: a.correct, concept: info[a.id].concept };
       const rightByConcept = {};
       let right = 0;
-      Object.keys(latest).forEach(function (id) {
-        if (!latest[id]) return;
+      Object.keys(latest).forEach(function (slot) {
+        if (!latest[slot].correct) return;
         right += 1;
-        const concept = info[id].concept;
+        const concept = latest[slot].concept;
         rightByConcept[concept] = (rightByConcept[concept] || 0) + 1;
       });
       return {
@@ -200,10 +200,10 @@ function renderProgressCharts(root, challengeData) {
     root.innerHTML = '<p class="chart-empty">Answer a few challenges and your score chart will appear here.</p>';
     return;
   }
-  const total = challengeData.challenges.length;
+  const total = slotList(challengeData.challenges).length;
   const concepts = challengeData.concepts;
   const perConceptTotal = {};
-  challengeData.challenges.forEach(function (c) { perConceptTotal[c.concept] = (perConceptTotal[c.concept] || 0) + 1; });
+  slotList(challengeData.challenges).forEach(function (s) { perConceptTotal[s.concept] = (perConceptTotal[s.concept] || 0) + 1; });
   const pct = function (right) { return Math.round((right / total) * 100); };
 
   function card(parent, title, subtitle) {

@@ -4,7 +4,7 @@ Interactive web app for engineering students and hobbyists to practice GD&T conc
 
 It has four modes:
 - **Learn:** short lessons on datums, flatness, perpendicularity and position, each with a quiz.
-- **Challenge:** 12 drawing questions, with hints and optional AI explanations of wrong answers.
+- **Challenge:** 12 drawing questions, each with 3 versions, with hints, retakes with a new version, and optional AI explanations.
 - **Visualize:** sliders that grow or shrink a tolerance zone until a part passes.
 - **Progress:** scores and the concepts that need more practice, saved in the browser.
 

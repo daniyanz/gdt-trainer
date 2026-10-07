@@ -96,7 +96,7 @@ The user reaches a 100% score: every challenge question's latest answer is right
 | Question types | [x] "What does this symbol mean?" [x] "What feature does this tolerance apply to?" [x] "What is wrong with this drawing?" |
 | Answer format | Mix of multiple choice and click-on-the-drawing |
 | Where drawings come from | Agent-generated SVGs reviewed and corrected by me |
-| Number of challenges in v1 | 12 GD&T challenges: 3 per concept, each using a different drawing. Optionally up to 2 extra "Drawing basics" error questions, only if source-supported. |
+| Number of challenges in v1 | 12 question slots, 3 per concept. *Updated 2026-10-07 by the author:* each slot has 3 versions (36 questions in total) with the same concept and question type but a different drawing. After a wrong answer, "Try a new version" swaps in a different version; returning to a question answered wrong also shows a new version, so a retake is never the exact question that was missed. When all versions have been used, the one answered longest ago comes back. |
 | Feedback after answering | Short explanation |
 | Hints available? | Yes |
 | Difficulty levels | None in v1 |
@@ -105,6 +105,7 @@ The user reaches a 100% score: every challenge question's latest answer is right
 - [ ] User can answer a question and immediately see whether they were right.
 - [ ] Each wrong answer shows a short explanation of the correct concept.
 - [ ] Each of the 4 GD&T concepts appears in 3 different challenge questions.
+- [ ] Every question slot has 3 versions, each with its own drawing, and a wrong answer offers a new version of the same question.
 - [ ] The 3 questions for a concept use 3 different drawings rather than repeating the same question.
 - [ ] Every challenge is tagged with exactly one concept, or with "Drawing basics".
 - [ ] Click-on-the-drawing questions clearly show which feature the user selected.
@@ -131,7 +132,7 @@ The user reaches a 100% score: every challenge question's latest answer is right
 | Item | Your answer |
 |---|---|
 | What is tracked | [x] Score per challenge [x] Correct/incorrect per concept [x] Lessons completed [ ] Time spent |
-| Score rules | *Simplified 2026-10-06 by the author; replaces the earlier Learned / In progress / first-try rules.* **Score** = challenge questions whose **latest** answer is right, out of all 12. Retaking a question replaces its earlier result in the score. Lesson quizzes do not count. **Needs more practice** = every concept with a question whose latest answer is wrong; the recommendation links to that concept's lesson and to the exact questions to retake. History is never erased. |
+| Score rules | *Simplified 2026-10-06 by the author; replaces the earlier Learned / In progress / first-try rules.* **Score** = question slots whose **latest** answer, in any version, is right, out of all 12. Answering a new version of a missed question correctly replaces the earlier result in the score. Lesson quizzes do not count. **Needs more practice** = every concept with a question whose latest answer is wrong; the recommendation links to that concept's lesson and to the exact questions to retake. History is never erased. |
 | Where data is stored | Browser localStorage |
 | User accounts | None |
 | Progress page shows | Score (percentage and questions right out of 12), questions answered, lessons completed, the "Needs more practice" recommendation with retake links, questions right per concept, and every question's latest answer |

@@ -38,6 +38,8 @@
 }
 
 * { box-sizing: border-box; }
+/* The hidden attribute always wins, even over display: flex on .btn-row. */
+[hidden] { display: none !important; }
 
 body {
   margin: 0;

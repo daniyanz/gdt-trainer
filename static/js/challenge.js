@@ -1,6 +1,11 @@
 /*
  * challenge.js: Drawing Challenge mode.
  *
+ * There are 12 question slots, each with 3 versions (same concept and
+ * question type, different drawing). After a wrong answer the user can ask
+ * for a new version; coming back to a question they got wrong also brings
+ * up a new version, so a retake is never the exact same drawing.
+ *
  * Two answer formats, both described in data/challenges.json:
  *  - "choice": pick one option, then press Check.
  *  - "click":  click a feature on the drawing, then press Check.
@@ -11,7 +16,9 @@
  */
 
 let data = null;       // contents of challenges.json
-let current = 0;       // index of the question on screen
+let slots = [];        // the question bank grouped into slots (storage.js slotList)
+let current = 0;       // index of the slot on screen
+let question = null;   // the version of that slot on screen
 let selected = null;   // the answer ID the user has picked
 let answered = false;  // true once Check has been pressed
 
@@ -19,9 +26,10 @@ async function startChallenges() {
   const box = document.getElementById("challenge");
   try {
     data = await fetchJSON("data/challenges.json");
+    slots = slotList(data.challenges);
     // challenge.html?q=7 opens question 7 (used by the Progress page's retake links).
     const requested = Number(new URLSearchParams(window.location.search).get("q"));
-    const start = requested >= 1 && requested <= data.challenges.length ? requested - 1 : 0;
+    const start = requested >= 1 && requested <= slots.length ? requested - 1 : 0;
     showQuestion(start);
   } catch (error) {
     showLoadError(box, error);
@@ -32,9 +40,9 @@ async function startChallenges() {
 function renderNav() {
   const stats = computeStats(data.challenges, data.concepts);
   const nav = document.getElementById("question-nav");
-  nav.innerHTML = data.challenges.map(function (c, i) {
+  nav.innerHTML = slots.map(function (info, i) {
     // Mark each number with its latest answer: ✓ right or ✗ wrong.
-    const last = stats.perQuestion[c.id].last;
+    const last = stats.perSlot[info.slot].last;
     const mark = last === true ? "right" : last === false ? "wrong" : "";
     return (
       '<button type="button" data-index="' + i + '"' +
@@ -49,13 +57,32 @@ function renderNav() {
   });
 }
 
-async function showQuestion(index) {
+/*
+ * Decide which version of a slot to show. If the latest answer in this slot
+ * was wrong on the version currently set, switch to a different version, so
+ * a retake is never the exact question that was missed.
+ */
+function versionToShow(info) {
+  const shown = activeVersion(info);
+  const s = computeStats(data.challenges, data.concepts).perSlot[info.slot];
+  if (s.last === false && s.lastId === shown.id) {
+    const fresh = pickNewVersion(info, shown.id);
+    setActiveVersion(info.slot, fresh.id);
+    return fresh;
+  }
+  return shown;
+}
+
+async function showQuestion(index, chosenVersion) {
   current = index;
   selected = null;
   answered = false;
+  const info = slots[index];
+  question = chosenVersion || versionToShow(info);
   renderNav();
 
-  const c = data.challenges[index];
+  const c = question;
+  const versionNumber = info.versions.indexOf(c) + 1;
   const box = document.getElementById("challenge");
   const answerArea = c.format === "choice"
     ? '<div class="options" role="radiogroup" aria-label="Answer options">' +
@@ -73,7 +100,8 @@ async function showQuestion(index) {
       '<section class="card">' +
         '<p><span class="tag">' + escapeHTML(data.concepts[c.concept]) + "</span>" +
         '<span class="tag">' + escapeHTML(data.types[c.type]) + "</span></p>" +
-        "<h2 style=\"margin-top:6px\">Question " + (index + 1) + " of " + data.challenges.length + "</h2>" +
+        "<h2 style=\"margin-top:6px\">Question " + (index + 1) + " of " + slots.length + "</h2>" +
+        '<p class="source-line">Version ' + versionNumber + " of " + info.versions.length + "</p>" +
         "<p><b>" + escapeHTML(c.question) + "</b></p>" +
         answerArea +
         '<div class="btn-row">' +
@@ -83,7 +111,8 @@ async function showQuestion(index) {
         '<div id="hint" class="feedback info" hidden><p class="title">Hint</p><p>' + escapeHTML(c.hint) + "</p></div>" +
         '<div id="result" aria-live="polite"></div>' +
         '<div class="btn-row" id="next-row" hidden>' +
-          (index < data.challenges.length - 1
+          '<button type="button" class="btn secondary" id="new-version" hidden>↻ Try a new version of this question</button>' +
+          (index < slots.length - 1
             ? '<button type="button" class="btn" id="next">Next question →</button>'
             : '<a class="btn" href="progress.html">See your progress →</a>') +
         "</div>" +
@@ -96,6 +125,12 @@ async function showQuestion(index) {
   document.getElementById("check").addEventListener("click", checkAnswer);
   const next = document.getElementById("next");
   if (next) next.addEventListener("click", function () { showQuestion(current + 1); });
+  // After a wrong answer: swap in a different version of the same question.
+  document.getElementById("new-version").addEventListener("click", function () {
+    const fresh = pickNewVersion(slots[current], question.id);
+    setActiveVersion(slots[current].slot, fresh.id);
+    showQuestion(current, fresh);
+  });
 
   if (c.format === "choice") {
     box.querySelectorAll(".option").forEach(function (button) {
@@ -136,7 +171,7 @@ function wireClickTargets(drawing, c) {
 function choose(answerId) {
   if (answered) return;
   selected = answerId;
-  const c = data.challenges[current];
+  const c = question;
   if (c.format === "choice") {
     document.querySelectorAll("#challenge .option").forEach(function (b) {
       const isPicked = b.dataset.id === answerId;
@@ -163,9 +198,9 @@ function labelFor(c, answerId) {
 function checkAnswer() {
   if (answered || selected === null) return;
   answered = true;
-  const c = data.challenges[current];
+  const c = question;
   const correct = selected === c.answer;
-  recordAttempt(c.id, c.concept, correct);
+  recordAttempt(c, correct);
 
   // Lock the answers and mark the right one (and the wrong pick, if any).
   document.getElementById("check").disabled = true;
@@ -204,6 +239,7 @@ function checkAnswer() {
     });
   }
   document.getElementById("next-row").hidden = false;
+  document.getElementById("new-version").hidden = correct;
   renderNav();
 }
 
@@ -255,11 +291,10 @@ function showAIFallback(out, reason) {
 // Tells TutorBot (tutorbot.js) which question is on screen and whether
 // it has been answered, so TutorBot never spoils an unanswered question.
 window.getTutorContext = function () {
-  if (!data) return { page: "challenge", label: "Challenge mode" };
-  const c = data.challenges[current];
+  if (!data || !question) return { page: "challenge", label: "Challenge mode" };
   return {
     page: "challenge",
-    challengeId: c.id,
+    challengeId: question.id,
     answered: answered,
     selected: selected,
     label: "Challenge question " + (current + 1) + (answered ? " (answered)" : ""),

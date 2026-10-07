@@ -5,17 +5,22 @@
  * is closed. Nothing here is sent to a server. Clearing site data in the
  * browser, or the Reset button on the Progress page, deletes it.
  *
+ * The challenge has 12 question SLOTS. Each slot has 3 VERSIONS: the same
+ * concept and question type, but a different drawing. Answers are stored per
+ * version; the score is worked out per slot.
+ *
  * Saved shape:
  * {
  *   lessonsCompleted: { "flatness": true, ... },
- *   attempts: [ { id: "flat-1", concept: "flatness", correct: true, time: 1700000000000 }, ... ]
+ *   attempts: [ { id: "flat-1b", slot: 2, concept: "flatness", correct: true, time: 1700000000000 }, ... ],
+ *   active: { "2": "flat-1b", ... }   // which version of each slot is on screen
  * }
  */
 
 const STORAGE_KEY = "gdtTrainerProgress.v1";
 
 function emptyProgress() {
-  return { lessonsCompleted: {}, attempts: [] };
+  return { lessonsCompleted: {}, attempts: [], active: {} };
 }
 
 // Read progress. Falls back to empty progress if storage is blocked
@@ -28,6 +33,7 @@ function loadProgress() {
     return {
       lessonsCompleted: data.lessonsCompleted || {},
       attempts: Array.isArray(data.attempts) ? data.attempts : [],
+      active: data.active && typeof data.active === "object" ? data.active : {},
     };
   } catch (error) {
     return emptyProgress();
@@ -44,9 +50,11 @@ function saveProgress(progress) {
   }
 }
 
-function recordAttempt(challengeId, concept, correct) {
+function recordAttempt(challenge, correct) {
   const progress = loadProgress();
-  progress.attempts.push({ id: challengeId, concept: concept, correct: correct, time: Date.now() });
+  progress.attempts.push({
+    id: challenge.id, slot: challenge.slot, concept: challenge.concept, correct: correct, time: Date.now(),
+  });
   saveProgress(progress);
 }
 
@@ -64,57 +72,101 @@ function resetProgress() {
   }
 }
 
+// ---------- Question slots and versions ----------
+
+// Group the question bank into slots, in slot order:
+// [{ slot: 1, concept, type, versions: [question, question, question] }, ...]
+function slotList(challenges) {
+  const bySlot = {};
+  challenges.forEach(function (c) {
+    if (!bySlot[c.slot]) bySlot[c.slot] = { slot: c.slot, concept: c.concept, type: c.type, versions: [] };
+    bySlot[c.slot].versions.push(c);
+  });
+  return Object.keys(bySlot).map(Number).sort(function (a, b) { return a - b; })
+    .map(function (s) { return bySlot[s]; });
+}
+
+// The version of a slot currently on screen (the first version by default).
+function activeVersion(slotInfo) {
+  const id = loadProgress().active[slotInfo.slot];
+  return slotInfo.versions.find(function (v) { return v.id === id; }) || slotInfo.versions[0];
+}
+
+function setActiveVersion(slotNumber, versionId) {
+  const progress = loadProgress();
+  progress.active[slotNumber] = versionId;
+  saveProgress(progress);
+}
+
+/*
+ * Pick a DIFFERENT version of a slot for a retake: a version never answered
+ * before if there is one, otherwise the one answered longest ago.
+ */
+function pickNewVersion(slotInfo, currentId) {
+  const lastAnswered = {};
+  loadProgress().attempts.forEach(function (a) { lastAnswered[a.id] = a.time; });
+  const others = slotInfo.versions.filter(function (v) { return v.id !== currentId; });
+  if (!others.length) return slotInfo.versions[0];
+  const unseen = others.filter(function (v) { return !(v.id in lastAnswered); });
+  if (unseen.length) return unseen[0];
+  return others.slice().sort(function (a, b) { return lastAnswered[a.id] - lastAnswered[b.id]; })[0];
+}
+
 /*
  * Work out statistics from the saved attempts.
  *
- * SCORE: a question counts as right when its MOST RECENT answer is right.
- * So retaking a question you got wrong, and getting it right, raises your
- * score (up to 100%). Earlier answers are never deleted: the charts on the
- * Progress page replay them to show how the score changed over time.
+ * SCORE: a slot counts as right when its MOST RECENT answer, in any version,
+ * is right. So after a wrong answer, getting a new version of that question
+ * right raises the score (up to 100%). Earlier answers are never deleted:
+ * the charts on the Progress page replay them to show the score over time.
  *
- * A concept "needs more practice" while any of its questions is currently wrong.
+ * A concept "needs more practice" while any of its slots is currently wrong.
  */
 function computeStats(challenges, conceptNames) {
   const progress = loadProgress();
+  const slots = slotList(challenges);
+  const slotOf = {};
+  challenges.forEach(function (c) { slotOf[c.id] = c.slot; });
 
-  const perQuestion = {};
-  challenges.forEach(function (c, i) {
-    perQuestion[c.id] = { number: i + 1, concept: c.concept, attempts: 0, last: null };
+  const perSlot = {};
+  slots.forEach(function (s) {
+    perSlot[s.slot] = { number: s.slot, concept: s.concept, type: s.type, attempts: 0, last: null, lastId: null };
   });
   // Attempts are stored in the order they happened, so the last one wins.
   progress.attempts.forEach(function (a) {
-    const q = perQuestion[a.id];
-    if (!q) return; // ignore attempts for removed questions
-    q.attempts += 1;
-    q.last = a.correct;
+    const s = perSlot[slotOf[a.id]];
+    if (!s) return; // ignore attempts for removed questions
+    s.attempts += 1;
+    s.last = a.correct;
+    s.lastId = a.id;
   });
 
   const perConcept = {};
   Object.keys(conceptNames).forEach(function (key) {
     perConcept[key] = { right: 0, total: 0, wrong: [], unanswered: [] };
   });
-  challenges.forEach(function (c) {
-    const q = perQuestion[c.id];
-    const concept = perConcept[c.concept];
+  slots.forEach(function (info) {
+    const s = perSlot[info.slot];
+    const concept = perConcept[info.concept];
     concept.total += 1;
-    if (q.last === true) concept.right += 1;
-    else if (q.last === false) concept.wrong.push(q.number);
-    else concept.unanswered.push(q.number);
+    if (s.last === true) concept.right += 1;
+    else if (s.last === false) concept.wrong.push(s.number);
+    else concept.unanswered.push(s.number);
   });
   Object.keys(perConcept).forEach(function (key) {
     perConcept[key].needsPractice = perConcept[key].wrong.length > 0;
   });
 
-  const right = challenges.filter(function (c) { return perQuestion[c.id].last === true; }).length;
-  const answered = challenges.filter(function (c) { return perQuestion[c.id].last !== null; }).length;
+  const right = slots.filter(function (s) { return perSlot[s.slot].last === true; }).length;
+  const answered = slots.filter(function (s) { return perSlot[s.slot].last !== null; }).length;
 
   return {
-    perQuestion: perQuestion,
+    perSlot: perSlot,
     perConcept: perConcept,
     right: right,
     answered: answered,
-    totalQuestions: challenges.length,
-    score: challenges.length ? right / challenges.length : 0,
+    totalQuestions: slots.length,
+    score: slots.length ? right / slots.length : 0,
     lessonsCompleted: progress.lessonsCompleted,
   };
 }

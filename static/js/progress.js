@@ -82,13 +82,13 @@ async function showProgress() {
     );
   }).join("");
 
-  const questionRows = challengeData.challenges.map(function (q, i) {
-    const s = stats.perQuestion[q.id];
+  const questionRows = slotList(challengeData.challenges).map(function (info) {
+    const s = stats.perSlot[info.slot];
     const latest = s.last === null ? "Not answered" : (s.last ? "✓ right" : "✗ wrong");
     return (
-      '<tr><td><a href="challenge.html?q=' + (i + 1) + '">' + (i + 1) + "</a></td>" +
-      "<td>" + escapeHTML(concepts[q.concept]) + "</td>" +
-      "<td>" + escapeHTML(challengeData.types[q.type]) + "</td>" +
+      '<tr><td><a href="challenge.html?q=' + info.slot + '">' + info.slot + "</a></td>" +
+      "<td>" + escapeHTML(concepts[info.concept]) + "</td>" +
+      "<td>" + escapeHTML(challengeData.types[info.type]) + "</td>" +
       "<td>" + latest + "</td><td>" + s.attempts + "</td></tr>"
     );
   }).join("");
@@ -118,6 +118,7 @@ async function showProgress() {
     }).join("") + "</ul>" +
 
     "<h2>Every question</h2>" +
+    '<p class="source-line">Each question has 3 versions with different drawings. Retaking a question you got wrong gives you a new version.</p>' +
     '<div class="table-wrap"><table><thead><tr><th>#</th><th>Concept</th><th>Type</th><th>Latest answer</th><th>Times answered</th></tr></thead><tbody>' +
     questionRows + "</tbody></table></div>" +
 

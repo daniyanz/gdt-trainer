@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 555 269" role="img" aria-label="Plate 70 by 25 by 40 in front and side views, with datum feature A on its bottom face">
+<title>Plate 70 by 25 by 40 in front and side views, with datum feature A on its bottom face</title>
+<style>
+.d-part{fill:#e7e9e6;stroke:#1d2733;stroke-width:1.8}
+.d-ln{stroke:#1d2733;stroke-width:1.4;fill:none}
+.d-thin{stroke:#1d2733;stroke-width:1;fill:none}
+.d-center{stroke:#1d2733;stroke-width:0.9;fill:none;stroke-dasharray:14 3 3 3}
+.d-zone{stroke:#b42318;stroke-width:1.4;fill:none;stroke-dasharray:6 4}
+.d-zonefill{fill:#b42318;fill-opacity:0.08;stroke:none}
+.d-txt{font-family:Arial,Helvetica,sans-serif;font-size:13px;fill:#1d2733}
+.d-small{font-family:Arial,Helvetica,sans-serif;font-size:11px;fill:#4a5868}
+.d-fill{fill:#1d2733;stroke:none}
+.d-box{fill:#fff;stroke:#1d2733;stroke-width:1.3}
+</style>
+<polygon points="90,155 300,155 300,80 90,80" class="d-part"/><rect x="375" y="80" width="120" height="75" class="d-part"/><line x1="90" y1="155" x2="90" y2="224" class="d-thin"/><line x1="300" y1="155" x2="300" y2="224" class="d-thin"/><line x1="90" y1="219" x2="300" y2="219" class="d-thin"/><polygon points="90.0,219.0 97.3,215.6 97.3,222.4" class="d-fill"/><polygon points="300.0,219.0 292.7,222.4 292.7,215.6" class="d-fill"/><rect x="181.0" y="210" width="28" height="16" fill="#fff"/><text x="195.0" y="223" class="d-txt" text-anchor="middle">70</text><line x1="375" y1="155" x2="375" y2="224" class="d-thin"/><line x1="495" y1="155" x2="495" y2="224" class="d-thin"/><line x1="375" y1="219" x2="495" y2="219" class="d-thin"/><polygon points="375.0,219.0 382.3,215.6 382.3,222.4" class="d-fill"/><polygon points="495.0,219.0 487.7,222.4 487.7,215.6" class="d-fill"/><rect x="421.0" y="210" width="28" height="16" fill="#fff"/><text x="435.0" y="223" class="d-txt" text-anchor="middle">40</text><line x1="495" y1="80" x2="530" y2="80" class="d-thin"/><line x1="495" y1="155" x2="530" y2="155" class="d-thin"/><line x1="525" y1="80" x2="525" y2="155" class="d-thin"/><polygon points="525.0,80.0 528.4,87.3 521.6,87.3" class="d-fill"/><polygon points="525.0,155.0 521.6,147.7 528.4,147.7" class="d-fill"/><rect x="511.0" y="108.5" width="28" height="17" fill="#fff"/><text x="525" y="121.5" class="d-txt" text-anchor="middle">25</text><text x="50" y="255" class="d-small" text-anchor="start">Dimensions in mm. Unless otherwise specified, tolerance ±0.1.</text><polygon points="158,155 172,155 165,166" class="d-fill"/><line x1="165" y1="166" x2="165" y2="176" class="d-thin"/><rect x="154" y="176" width="22" height="22" class="d-box"/><text x="165" y="191.5" class="d-txt" text-anchor="middle">A</text>
+</svg>

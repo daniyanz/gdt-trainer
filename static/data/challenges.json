@@ -19,15 +19,90 @@
       "drawing": "drawings/ch-datum-1.svg",
       "question": "What does the boxed letter A joined to a triangle on the bottom face mean?",
       "options": [
-        {"id": "a", "text": "The bottom face is datum feature A, the real surface that datum A is taken from"},
-        {"id": "b", "text": "The bottom face needs a surface finish of grade A"},
-        {"id": "c", "text": "A section view named A is cut through the bottom face"},
-        {"id": "d", "text": "The bottom face is the first surface to machine"}
+        {
+          "id": "a",
+          "text": "The bottom face is datum feature A, the real surface that datum A is taken from"
+        },
+        {
+          "id": "b",
+          "text": "The bottom face needs a surface finish of grade A"
+        },
+        {
+          "id": "c",
+          "text": "A section view named A is cut through the bottom face"
+        },
+        {
+          "id": "d",
+          "text": "The bottom face is the first surface to machine"
+        }
       ],
       "answer": "a",
       "hint": "This symbol labels a surface. It does not set a tolerance.",
       "explanation": "This is a datum feature symbol. It names the bottom face as datum feature A. The perfect plane derived from that real face is datum A, which other tolerances can reference.",
-      "source": "Berez, Part I, slides 18 and 20"
+      "source": "Berez, Part I, slides 18 and 20",
+      "slot": 1
+    },
+    {
+      "id": "datum-1b",
+      "slot": 1,
+      "concept": "datums",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-datum-1b.svg",
+      "question": "The left face carries a datum feature symbol B. Strictly speaking, what is datum B?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The perfect, theoretical plane derived from the real left face"
+        },
+        {
+          "id": "b",
+          "text": "The real left face itself, with all its unevenness"
+        },
+        {
+          "id": "c",
+          "text": "A second view of the part, labelled B"
+        },
+        {
+          "id": "d",
+          "text": "A note that the left face must be machined second"
+        }
+      ],
+      "answer": "a",
+      "hint": "Compare the real, slightly imperfect face with the reference you measure from.",
+      "explanation": "The left face is datum feature B: the real, imperfect surface. Datum B is the perfect, theoretical plane derived from it, and measurements are taken from that perfect plane.",
+      "source": "Berez, Part I, slide 18"
+    },
+    {
+      "id": "datum-1c",
+      "slot": 1,
+      "concept": "datums",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-datum-1c.svg",
+      "question": "Datum A is the flat bottom face. Used as the primary datum, at most how many degrees of freedom can this plane control?",
+      "options": [
+        {
+          "id": "a",
+          "text": "3: two rotations and one translation"
+        },
+        {
+          "id": "b",
+          "text": "6: all of them"
+        },
+        {
+          "id": "c",
+          "text": "1: one translation"
+        },
+        {
+          "id": "d",
+          "text": "2: two translations"
+        }
+      ],
+      "answer": "a",
+      "hint": "A plane can stop the part tipping in two directions and moving in one.",
+      "explanation": "A planar datum controls at most 2 rotations and 1 translation: 3 of the part's 6 degrees of freedom. Further datums are needed to control the rest.",
+      "source": "Berez, Part I, slides 16 and 19"
     },
     {
       "id": "flat-1",
@@ -37,15 +112,90 @@
       "drawing": "drawings/ch-flat-1.svg",
       "question": "What does this feature control frame require of the top face?",
       "options": [
-        {"id": "a", "text": "All points of the top face must lie between two parallel planes 0.05 mm apart"},
-        {"id": "b", "text": "The top face must be parallel to the bottom face within 0.05 mm"},
-        {"id": "c", "text": "The top face must be within 0.05 mm of datum A"},
-        {"id": "d", "text": "The top face may be at most 0.05 mm rough"}
+        {
+          "id": "a",
+          "text": "All points of the top face must lie between two parallel planes 0.05 mm apart"
+        },
+        {
+          "id": "b",
+          "text": "The top face must be parallel to the bottom face within 0.05 mm"
+        },
+        {
+          "id": "c",
+          "text": "The top face must be within 0.05 mm of datum A"
+        },
+        {
+          "id": "d",
+          "text": "The top face may be at most 0.05 mm rough"
+        }
       ],
       "answer": "a",
       "hint": "The parallelogram symbol is a form control, and form controls never reference a datum.",
       "explanation": "The parallelogram is the flatness symbol. With no datum, it compares the surface only with itself: the whole top face must fit between two parallel planes 0.05 mm apart, wherever those planes sit.",
+      "source": "Berez, Part I, slides 27 and 30; NASA GD and T Basics, slide 22",
+      "slot": 2
+    },
+    {
+      "id": "flat-1b",
+      "slot": 2,
+      "concept": "flatness",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-flat-1b.svg",
+      "question": "Which statement about the frame on the left face is true?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It needs no datum, because it compares the face only with itself"
+        },
+        {
+          "id": "b",
+          "text": "It is missing a datum letter, so it cannot be inspected"
+        },
+        {
+          "id": "c",
+          "text": "It controls how parallel the left face is to the right face"
+        },
+        {
+          "id": "d",
+          "text": "It locates the left face 0.1 mm from the edge"
+        }
+      ],
+      "answer": "a",
+      "hint": "Is the parallelogram a form, orientation or location control?",
+      "explanation": "The parallelogram is the flatness symbol, a form control. It compares the left face only with itself, so it needs no datum: the face must fit between two parallel planes 0.1 mm apart.",
       "source": "Berez, Part I, slides 27 and 30; NASA GD and T Basics, slide 22"
+    },
+    {
+      "id": "flat-1c",
+      "slot": 2,
+      "concept": "flatness",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-flat-1c.svg",
+      "question": "What does the symbol in the first box of this frame mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Flatness"
+        },
+        {
+          "id": "b",
+          "text": "Parallelism"
+        },
+        {
+          "id": "c",
+          "text": "Perpendicularity"
+        },
+        {
+          "id": "d",
+          "text": "Position"
+        }
+      ],
+      "answer": "a",
+      "hint": "A tilted rectangle: think of a surface that must stay flat.",
+      "explanation": "The parallelogram is the flatness symbol. Here the top face must lie between two parallel planes 0.03 mm apart.",
+      "source": "Berez, Part I, slide 27; NASA GD and T Basics, slide 22"
     },
     {
       "id": "perp-1",
@@ -55,15 +205,90 @@
       "drawing": "drawings/ch-perp-1.svg",
       "question": "What does the first symbol in this feature control frame mean?",
       "options": [
-        {"id": "a", "text": "Perpendicularity"},
-        {"id": "b", "text": "Flatness"},
-        {"id": "c", "text": "Parallelism"},
-        {"id": "d", "text": "Position"}
+        {
+          "id": "a",
+          "text": "Perpendicularity"
+        },
+        {
+          "id": "b",
+          "text": "Flatness"
+        },
+        {
+          "id": "c",
+          "text": "Parallelism"
+        },
+        {
+          "id": "d",
+          "text": "Position"
+        }
       ],
       "answer": "a",
       "hint": "It looks like an upside-down T: one line standing at 90° on another.",
       "explanation": "⊥ is the perpendicularity symbol, an orientation control. This frame requires the right face to lie within a 0.1 mm zone standing at 90° to datum A.",
-      "source": "Berez, Part I, slides 27 and 32; NASA GD and T Basics, slide 25"
+      "source": "Berez, Part I, slides 27 and 32; NASA GD and T Basics, slide 25",
+      "slot": 3
+    },
+    {
+      "id": "perp-1b",
+      "slot": 3,
+      "concept": "perpendicularity",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-perp-1b.svg",
+      "question": "What does this frame require of the upright's outer left face?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It must lie between two parallel planes 0.05 mm apart, at 90° to datum A"
+        },
+        {
+          "id": "b",
+          "text": "It must be parallel to datum A within 0.05 mm"
+        },
+        {
+          "id": "c",
+          "text": "It must be flat within 0.05 mm, with no datum involved"
+        },
+        {
+          "id": "d",
+          "text": "It must be located exactly 0.05 mm from datum A"
+        }
+      ],
+      "answer": "a",
+      "hint": "The symbol is an upside-down T, and the frame names datum A.",
+      "explanation": "⊥ is perpendicularity. The left face must lie between two parallel planes 0.05 mm apart that stand at 90° to datum A.",
+      "source": "Berez, Part I, slide 32; NASA GD and T Basics, slide 25"
+    },
+    {
+      "id": "perp-1c",
+      "slot": 3,
+      "concept": "perpendicularity",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-perp-1c.svg",
+      "question": "The first symbol in this frame belongs to which group of geometric controls?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Orientation"
+        },
+        {
+          "id": "b",
+          "text": "Form"
+        },
+        {
+          "id": "c",
+          "text": "Location"
+        },
+        {
+          "id": "d",
+          "text": "Runout"
+        }
+      ],
+      "answer": "a",
+      "hint": "This control is always measured relative to a datum, and it is about angle, not position.",
+      "explanation": "⊥ is perpendicularity, an orientation control, like parallelism and angularity. Orientation controls always reference a datum, here datum A.",
+      "source": "Berez, Part I, slides 27 and 32"
     },
     {
       "id": "pos-1",
@@ -73,15 +298,90 @@
       "drawing": "drawings/ch-pos-1.svg",
       "question": "What does the first symbol in this feature control frame mean?",
       "options": [
-        {"id": "a", "text": "Position"},
-        {"id": "b", "text": "Circularity"},
-        {"id": "c", "text": "Flatness"},
-        {"id": "d", "text": "Perpendicularity"}
+        {
+          "id": "a",
+          "text": "Position"
+        },
+        {
+          "id": "b",
+          "text": "Circularity"
+        },
+        {
+          "id": "c",
+          "text": "Flatness"
+        },
+        {
+          "id": "d",
+          "text": "Perpendicularity"
+        }
       ],
       "answer": "a",
       "hint": "A circle with crosshairs, like a target: where should the hole's center be?",
       "explanation": "This is the position symbol, a location control. With Ø0.2, the hole's axis must stay inside a 0.2 mm diameter cylinder at its true position. The true position is 25 and 20 from datums B and C, and the frame references datums A, B and C.",
-      "source": "Berez, Part I, slides 27, 28 and 35"
+      "source": "Berez, Part I, slides 27, 28 and 35",
+      "slot": 4
+    },
+    {
+      "id": "pos-1b",
+      "slot": 4,
+      "concept": "position",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-pos-1b.svg",
+      "question": "In this position frame, what does Ø0.2 mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The hole's axis must stay inside a cylinder 0.2 mm in diameter"
+        },
+        {
+          "id": "b",
+          "text": "The hole is 0.2 mm in diameter"
+        },
+        {
+          "id": "c",
+          "text": "The hole may be up to 0.2 mm larger than Ø10"
+        },
+        {
+          "id": "d",
+          "text": "The hole must be round within 0.2 mm"
+        }
+      ],
+      "answer": "a",
+      "hint": "The Ø describes the shape of the tolerance zone, not the hole.",
+      "explanation": "The Ø makes the tolerance zone a cylinder, and 0.2 is its diameter. The hole's axis must stay inside a 0.2 mm cylinder centred on its true position.",
+      "source": "Berez, Part I, slide 28; NASA GD and T Basics, slide 16"
+    },
+    {
+      "id": "pos-1c",
+      "slot": 4,
+      "concept": "position",
+      "type": "symbol",
+      "format": "choice",
+      "drawing": "drawings/ch-pos-1c.svg",
+      "question": "What sets the exact center of this hole's position tolerance zone?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The boxed basic dimensions 45 and 15"
+        },
+        {
+          "id": "b",
+          "text": "The overall size of the plate"
+        },
+        {
+          "id": "c",
+          "text": "The 0.1 value in the frame"
+        },
+        {
+          "id": "d",
+          "text": "The hole's diameter, Ø6"
+        }
+      ],
+      "answer": "a",
+      "hint": "Look for the dimensions drawn in boxes.",
+      "explanation": "The boxed basic dimensions, 45 and 15 from datums B and C, set the true position. The position tolerance zone is centred there.",
+      "source": "NASA GD and T Basics, slides 16 and 23; Berez, Part I, slide 35"
     },
     {
       "id": "datum-2",
@@ -99,7 +399,46 @@
       "answer": "left",
       "hint": "The first datum letter in the frame is the primary datum. Then find the surface that carries that letter.",
       "explanation": "Datums are listed in order of precedence, so A is primary. The datum feature symbol A is attached to the left face, not the bottom. Always read the letters instead of assuming the bottom is primary.",
+      "source": "Berez, Part I, slides 20 and 21",
+      "slot": 5
+    },
+    {
+      "id": "datum-2b",
+      "slot": 5,
+      "concept": "datums",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-datum-2b.svg",
+      "question": "The frame on the top face lists datums A then B. Click the surface that is the PRIMARY datum feature.",
+      "targets": {
+        "right": "Right face",
+        "bottom": "Bottom face",
+        "top": "Top face",
+        "left": "Left face"
+      },
+      "answer": "right",
+      "hint": "The first datum letter in the frame is the primary datum. Then find which surface carries that letter.",
+      "explanation": "Datums are listed in order of precedence, so A is primary. Here the datum feature symbol A is on the right face, so the right face is the primary datum feature.",
       "source": "Berez, Part I, slides 20 and 21"
+    },
+    {
+      "id": "datum-2c",
+      "slot": 5,
+      "concept": "datums",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-datum-2c.svg",
+      "question": "The position frame lists datums A, B, C. Click the SECONDARY datum feature.",
+      "targets": {
+        "left": "Left edge (top view)",
+        "bottomedge": "Bottom edge (top view)",
+        "top": "Top edge (top view)",
+        "frontbottom": "Bottom face (front view)"
+      },
+      "answer": "left",
+      "hint": "Secondary means the second letter in the frame.",
+      "explanation": "Datums are listed primary, secondary, tertiary. B is second, and its symbol sits on the left edge of the top view, so the left edge is the secondary datum feature.",
+      "source": "Berez, Part I, slide 21"
     },
     {
       "id": "flat-2",
@@ -117,6 +456,45 @@
       "answer": "lower",
       "hint": "Follow the leader line from the frame to its arrowhead.",
       "explanation": "A feature control frame applies to the feature its leader arrow touches. Here the arrow ends on the top face of the lower step, so only that face must be flat within 0.02 mm.",
+      "source": "Berez, Part I, slide 39",
+      "slot": 6
+    },
+    {
+      "id": "flat-2b",
+      "slot": 6,
+      "concept": "flatness",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-flat-2b.svg",
+      "question": "Click the surface this flatness tolerance controls.",
+      "targets": {
+        "upper": "Upper step top face",
+        "lower": "Lower step top face",
+        "right": "Right face",
+        "bottom": "Bottom face"
+      },
+      "answer": "upper",
+      "hint": "Follow the leader line from the frame to its arrowhead.",
+      "explanation": "A feature control frame applies to the feature its leader arrow touches. Here the arrow ends on the top face of the upper step, on the right, so only that face must be flat within 0.02 mm.",
+      "source": "Berez, Part I, slide 39"
+    },
+    {
+      "id": "flat-2c",
+      "slot": 6,
+      "concept": "flatness",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-flat-2c.svg",
+      "question": "Click the surface this flatness tolerance controls.",
+      "targets": {
+        "basetop": "Base top face",
+        "inner": "Upright inner face",
+        "uprighttop": "Upright top face",
+        "bottom": "Bottom face"
+      },
+      "answer": "basetop",
+      "hint": "Follow the leader line to where its arrow ends.",
+      "explanation": "The leader arrow ends on the top face of the base, so that face must be flat within 0.05 mm. The upright is not controlled by this frame.",
       "source": "Berez, Part I, slide 39"
     },
     {
@@ -135,6 +513,45 @@
       "answer": "inner",
       "hint": "Follow the leader line. Datum A is the reference, not the controlled feature.",
       "explanation": "The leader arrow ends on the upright's inner face, so that face must stay within a 0.05 mm zone at 90° to datum A. The bottom face is only the reference.",
+      "source": "Berez, Part I, slides 32 and 39",
+      "slot": 7
+    },
+    {
+      "id": "perp-2b",
+      "slot": 7,
+      "concept": "perpendicularity",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-perp-2b.svg",
+      "question": "Click the surface this perpendicularity tolerance controls.",
+      "targets": {
+        "left": "Left face",
+        "right": "Right face",
+        "top": "Top face",
+        "bottom": "Bottom face (datum A)"
+      },
+      "answer": "left",
+      "hint": "Follow the leader. Datum A is the reference, not the controlled feature.",
+      "explanation": "The leader arrow ends on the left face, so the left face must stay within a 0.1 mm zone at 90° to datum A. The bottom face is only the reference.",
+      "source": "Berez, Part I, slides 32 and 39"
+    },
+    {
+      "id": "perp-2c",
+      "slot": 7,
+      "concept": "perpendicularity",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-perp-2c.svg",
+      "question": "Click the surface this perpendicularity tolerance controls.",
+      "targets": {
+        "riser": "Step's vertical face",
+        "upper": "Upper step top face",
+        "lower": "Lower step top face",
+        "bottom": "Bottom face (datum A)"
+      },
+      "answer": "riser",
+      "hint": "Follow the leader line to where its arrow ends.",
+      "explanation": "The leader arrow ends on the step's vertical face, so that face must stay within a 0.05 mm zone at 90° to datum A.",
       "source": "Berez, Part I, slides 32 and 39"
     },
     {
@@ -153,6 +570,45 @@
       "answer": "hole-right",
       "hint": "Find the frame with Ø0.1, then follow the leader under it.",
       "explanation": "The Ø0.1 frame sits under the Ø10 size note, and its leader ends on the right hole. So the right hole's axis must lie within a Ø0.1 zone. The left hole has its own, looser Ø0.3 frame.",
+      "source": "Berez, Part I, slides 35 and 39",
+      "slot": 8
+    },
+    {
+      "id": "pos-2b",
+      "slot": 8,
+      "concept": "position",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-pos-2b.svg",
+      "question": "Click the feature that the Ø0.1 position tolerance applies to.",
+      "targets": {
+        "hole-left": "Left hole",
+        "hole-right": "Right hole",
+        "top": "Top edge",
+        "right": "Right edge"
+      },
+      "answer": "hole-left",
+      "hint": "Find the frame with Ø0.1, then follow the leader under it.",
+      "explanation": "The Ø0.1 frame sits under the Ø10 size note, and its leader ends on the left hole. So the left hole's axis must lie within a Ø0.1 zone. The right hole has its own Ø0.3 frame.",
+      "source": "Berez, Part I, slides 35 and 39"
+    },
+    {
+      "id": "pos-2c",
+      "slot": 8,
+      "concept": "position",
+      "type": "applies-to",
+      "format": "click",
+      "drawing": "drawings/ch-pos-2c.svg",
+      "question": "Click the feature that the Ø0.1 position tolerance applies to.",
+      "targets": {
+        "hole-left": "Left hole",
+        "hole-right": "Right hole",
+        "top": "Top edge",
+        "right": "Right edge"
+      },
+      "answer": "hole-right",
+      "hint": "Find the frame with Ø0.1, then follow its leader.",
+      "explanation": "The Ø0.1 frame sits under the right-hand Ø8 note, and its leader ends on the right hole, the lower one. The left hole has its own, looser Ø0.25 frame.",
       "source": "Berez, Part I, slides 35 and 39"
     },
     {
@@ -163,15 +619,90 @@
       "drawing": "drawings/ch-datum-3.svg",
       "question": "What is wrong with this drawing?",
       "options": [
-        {"id": "a", "text": "Datum feature symbol B is attached to the hole's center line instead of a real feature"},
-        {"id": "b", "text": "A drawing may only have one datum"},
-        {"id": "c", "text": "Datum A must always be the top face"},
-        {"id": "d", "text": "The 70 dimension must be a basic dimension"}
+        {
+          "id": "a",
+          "text": "Datum feature symbol B is attached to the hole's center line instead of a real feature"
+        },
+        {
+          "id": "b",
+          "text": "A drawing may only have one datum"
+        },
+        {
+          "id": "c",
+          "text": "Datum A must always be the top face"
+        },
+        {
+          "id": "d",
+          "text": "The 70 dimension must be a basic dimension"
+        }
       ],
       "answer": "a",
       "hint": "A datum feature is a real, physical feature of the part. Is a center line physical?",
       "explanation": "A datum feature symbol must not be attached to center lines, center planes or axes. Datum features are real surfaces, such as a plane or the cylindrical surface of a hole. The axis is derived from them.",
-      "source": "Berez, Part I, slides 18 to 20"
+      "source": "Berez, Part I, slides 18 to 20",
+      "slot": 9
+    },
+    {
+      "id": "datum-3b",
+      "slot": 9,
+      "concept": "datums",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-datum-3b.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The letter A is used for two different datum features"
+        },
+        {
+          "id": "b",
+          "text": "A position frame cannot reference three datums"
+        },
+        {
+          "id": "c",
+          "text": "The hole should be datum A"
+        },
+        {
+          "id": "d",
+          "text": "The 25 and 20 should not be boxed"
+        }
+      ],
+      "answer": "a",
+      "hint": "Count how many times each datum letter appears on the drawing.",
+      "explanation": "The letter A labels two different features: the bottom face and the right edge. Each datum letter should identify one datum feature, and a drawing should not repeat datum callouts.",
+      "source": "Berez, Part I, slide 20"
+    },
+    {
+      "id": "datum-3c",
+      "slot": 9,
+      "concept": "datums",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-datum-3c.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "No datums are identified, so the hole's location relies on implied datums"
+        },
+        {
+          "id": "b",
+          "text": "The hole must have a flatness callout"
+        },
+        {
+          "id": "c",
+          "text": "The 25 and 20 should be ± dimensions"
+        },
+        {
+          "id": "d",
+          "text": "The plate is too thin to have a hole"
+        }
+      ],
+      "answer": "a",
+      "hint": "Where is this hole measured from? Look for datum letters.",
+      "explanation": "The hole is located with basic dimensions, but no datum feature is identified and the frame names no datums. NASA's Goddard manual says that with true position dimensioning, the relationship to the part's surfaces must be identified with datum letters, and implied datums are no longer allowed.",
+      "source": "NASA GSFC-X-673-64-1F, PDF page 119; Berez, Part I, slide 27"
     },
     {
       "id": "flat-3",
@@ -181,15 +712,90 @@
       "drawing": "drawings/ch-flat-3.svg",
       "question": "What is wrong with this drawing?",
       "options": [
-        {"id": "a", "text": "Flatness should not reference a datum, so the A in the frame does not belong"},
-        {"id": "b", "text": "Datum A must be on the top face"},
-        {"id": "c", "text": "A flatness tolerance must be larger than 0.1"},
-        {"id": "d", "text": "A flatness frame needs a diameter symbol"}
+        {
+          "id": "a",
+          "text": "Flatness should not reference a datum, so the A in the frame does not belong"
+        },
+        {
+          "id": "b",
+          "text": "Datum A must be on the top face"
+        },
+        {
+          "id": "c",
+          "text": "A flatness tolerance must be larger than 0.1"
+        },
+        {
+          "id": "d",
+          "text": "A flatness frame needs a diameter symbol"
+        }
       ],
       "answer": "a",
       "hint": "Is flatness a form, orientation or location control? Which of those use datums?",
       "explanation": "Flatness is a form control and takes no datum reference. Controlling the top face relative to datum A would need an orientation control such as parallelism instead.",
-      "source": "Berez, Part I, slides 27 and 34"
+      "source": "Berez, Part I, slides 27 and 34",
+      "slot": 10
+    },
+    {
+      "id": "flat-3b",
+      "slot": 10,
+      "concept": "flatness",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-flat-3b.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The 0.5 flatness is larger than the 0.2 thickness tolerance, so it is not a refinement"
+        },
+        {
+          "id": "b",
+          "text": "Flatness must reference datum A"
+        },
+        {
+          "id": "c",
+          "text": "Flatness can only be applied to round parts"
+        },
+        {
+          "id": "d",
+          "text": "The 70 dimension must be basic"
+        }
+      ],
+      "answer": "a",
+      "hint": "Compare the flatness value with the thickness tolerance from the general note.",
+      "explanation": "The thickness is 15 ±0.1 from the general note, a 0.2 mm size range. A flatness tolerance on that surface should be a refinement, smaller than the size tolerance. At 0.5 it is larger, so it isn't needed.",
+      "source": "NASA GD and T Basics, slide 22"
+    },
+    {
+      "id": "flat-3c",
+      "slot": 10,
+      "concept": "flatness",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-flat-3c.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Flatness uses a zone of two parallel planes, so the Ø symbol does not belong"
+        },
+        {
+          "id": "b",
+          "text": "The flatness frame needs a datum letter"
+        },
+        {
+          "id": "c",
+          "text": "The tolerance must be larger than 0.1"
+        },
+        {
+          "id": "d",
+          "text": "Datum A must be on the top face"
+        }
+      ],
+      "answer": "a",
+      "hint": "What shape is a flatness tolerance zone? What shape does Ø describe?",
+      "explanation": "A flatness zone is two parallel planes. The Ø symbol makes a tolerance zone cylindrical, which does not describe flatness, so the Ø does not belong here.",
+      "source": "NASA GD and T Basics, slide 22; Berez, Part I, slide 28"
     },
     {
       "id": "perp-3",
@@ -199,15 +805,90 @@
       "drawing": "drawings/ch-perp-3.svg",
       "question": "What is wrong with this drawing?",
       "options": [
-        {"id": "a", "text": "The frame has no datum reference, so there is nothing to be perpendicular to"},
-        {"id": "b", "text": "Perpendicularity can only be applied to holes"},
-        {"id": "c", "text": "The tolerance must be written with a Ø"},
-        {"id": "d", "text": "Datum A must be on the right face"}
+        {
+          "id": "a",
+          "text": "The frame has no datum reference, so there is nothing to be perpendicular to"
+        },
+        {
+          "id": "b",
+          "text": "Perpendicularity can only be applied to holes"
+        },
+        {
+          "id": "c",
+          "text": "The tolerance must be written with a Ø"
+        },
+        {
+          "id": "d",
+          "text": "Datum A must be on the right face"
+        }
       ],
       "answer": "a",
       "hint": "Perpendicular to what?",
       "explanation": "Perpendicularity is an orientation control and always needs a datum. Datum A exists on the bottom face, but the frame never names it. It should read ⊥ | 0.1 | A.",
-      "source": "Berez, Part I, slides 27 and 32"
+      "source": "Berez, Part I, slides 27 and 32",
+      "slot": 11
+    },
+    {
+      "id": "perp-3b",
+      "slot": 11,
+      "concept": "perpendicularity",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-perp-3b.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The Ø is wrong: a flat face's perpendicularity zone is two parallel planes"
+        },
+        {
+          "id": "b",
+          "text": "Perpendicularity cannot reference datum A"
+        },
+        {
+          "id": "c",
+          "text": "The frame should be on the bottom face"
+        },
+        {
+          "id": "d",
+          "text": "The tolerance must be 0.05 or smaller"
+        }
+      ],
+      "answer": "a",
+      "hint": "The frame controls a flat face, not a hole or a pin.",
+      "explanation": "For a flat surface, the perpendicularity zone is two parallel planes. A cylindrical zone, shown by Ø, applies to the axis of a feature of size such as a hole or pin. On this flat face the Ø does not belong.",
+      "source": "NASA GD and T Basics, slide 25; Berez, Part I, slide 28"
+    },
+    {
+      "id": "perp-3c",
+      "slot": 11,
+      "concept": "perpendicularity",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-perp-3c.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The frame references datum B, but no datum B is identified on the drawing"
+        },
+        {
+          "id": "b",
+          "text": "Perpendicularity needs a Ø in front of 0.1"
+        },
+        {
+          "id": "c",
+          "text": "The 40 dimension must be basic"
+        },
+        {
+          "id": "d",
+          "text": "Datum A must be on the right face"
+        }
+      ],
+      "answer": "a",
+      "hint": "Check every letter in the frame against the datum symbols on the part.",
+      "explanation": "The frame references datum B, but no feature is labelled B, so the reference cannot be found. A datum named in a frame must be identified on the drawing with a datum feature symbol. Only A exists here.",
+      "source": "Berez, Part I, slides 20 and 21; NASA GSFC-X-673-64-1F, PDF page 119"
     },
     {
       "id": "pos-3",
@@ -217,15 +898,90 @@
       "drawing": "drawings/ch-pos-3.svg",
       "question": "What is wrong with this drawing?",
       "options": [
-        {"id": "a", "text": "The hole is located with ± dimensions. With a position tolerance, its location must be given by basic (boxed) dimensions"},
-        {"id": "b", "text": "A position frame cannot reference three datums"},
-        {"id": "c", "text": "Datum B must be on the right edge"},
-        {"id": "d", "text": "The hole needs a flatness callout"}
+        {
+          "id": "a",
+          "text": "The hole is located with ± dimensions. With a position tolerance, its location must be given by basic (boxed) dimensions"
+        },
+        {
+          "id": "b",
+          "text": "A position frame cannot reference three datums"
+        },
+        {
+          "id": "c",
+          "text": "Datum B must be on the right edge"
+        },
+        {
+          "id": "d",
+          "text": "The hole needs a flatness callout"
+        }
       ],
       "answer": "a",
       "hint": "Compare with the Position lesson diagram. How are the 25 and 20 drawn there?",
       "explanation": "Basic dimensions define the true position, the exact center of the tolerance zone. The 25±0.1 and 20±0.1 should be boxed basic dimensions, 25 and 20. NASA's Goddard drawing manual also notes that combining positional tolerancing with plus and minus methods for basic-dimensioned hole patterns is discontinued.",
-      "source": "NASA GD and T Basics, slide 23; NASA GSFC-X-673-64-1F, PDF page 119"
+      "source": "NASA GD and T Basics, slide 23; NASA GSFC-X-673-64-1F, PDF page 119",
+      "slot": 12
+    },
+    {
+      "id": "pos-3b",
+      "slot": 12,
+      "concept": "position",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-pos-3b.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The hole has no size dimension"
+        },
+        {
+          "id": "b",
+          "text": "The 25 and 20 should be ± dimensions"
+        },
+        {
+          "id": "c",
+          "text": "A position frame cannot reference datum C"
+        },
+        {
+          "id": "d",
+          "text": "Datum B must be on the right edge"
+        }
+      ],
+      "answer": "a",
+      "hint": "Position controls the center of a feature of size. Is this feature's size given?",
+      "explanation": "Position controls the center or axis of a feature of size, such as a hole. Here the hole's diameter is never given, so the feature is not fully defined.",
+      "source": "Berez, Part I, slides 35 and 43"
+    },
+    {
+      "id": "pos-3c",
+      "slot": 12,
+      "concept": "position",
+      "type": "whats-wrong",
+      "format": "choice",
+      "drawing": "drawings/ch-pos-3c.svg",
+      "question": "What is wrong with this drawing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Position is applied to a flat face, which is not a feature of size"
+        },
+        {
+          "id": "b",
+          "text": "The frame must reference datum C"
+        },
+        {
+          "id": "c",
+          "text": "The tolerance must be larger than 0.2"
+        },
+        {
+          "id": "d",
+          "text": "Datum B must be on the bottom face"
+        }
+      ],
+      "answer": "a",
+      "hint": "What kind of feature does position control?",
+      "explanation": "Position controls the location of a center point, axis or median plane of a feature of size, like a hole or slot. The top face is a single flat surface, not a feature of size, so a position frame does not apply to it.",
+      "source": "Berez, Part I, slides 35 and 43"
     }
   ]
 }
