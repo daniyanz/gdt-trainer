@@ -14,17 +14,27 @@ Claude ran its own tests with Python, Flask's test client, and Selenium with hea
 
 ## Development process
 
-| Date | Stage | What happened | My time |
-|---|---|---|---|
-| Oct 2 | Plan | Asked for a requirements template and filled it in myself: audience, scope, features, tech stack, limits. | *[fill in]* |
-| Oct 3 | Sources and setup | Chose the NASA references, then the NIST and NASA GD&T sources. Set up the OpenAI key, `.env` and Render. Fixed the first failed deploy. | *[fill in]* |
-| Oct 3 | Version 1 build | Claude built all four modes from the requirements: Learn, Challenge, Visualize and Progress. | *[fill in]* |
-| Oct 3–4 | Drawing review | I found underdefined drawings, such as missing datums, basic dimensions and hole sizes. All drawings were redrawn as fully defined two-view drawings. | *[fill in]* |
-| Oct 4 | Features and design | Added TutorBot, a page-aware AI chat. Restyled the site as an engineering drawing sheet. | *[fill in]* |
-| Oct 4 | Independent review | A second agent tested version 1 and wrote a report. The High and Medium issues were fixed. | *[fill in]* |
-| Oct 5 | TA review | Following my TA's feedback, added progress charts over time. | *[fill in]* |
-| Oct 6 | Simplify scoring | Replaced the confusing "Learned" rule with one score and a retake flow. | *[fill in]* |
-| Oct 7 | Question bank | Each question now has 3 versions, 36 in total, so a retake shows a different drawing. Wrote the presentation script. | *[fill in]* |
+| Date | Stage | What happened |
+|---|---|---|
+| Oct 2 | Plan | Asked for a requirements template and filled it in myself: audience, scope, features, tech stack, limits. |
+| Oct 3 | Sources and setup | Chose the NASA references, then the NIST and NASA GD&T sources. Set up the OpenAI key, `.env` and Render. Fixed the first failed deploy. |
+| Oct 3 | Version 1 build | Claude built all four modes from the requirements: Learn, Challenge, Visualize and Progress. |
+| Oct 3–4 | Drawing review | I found underdefined drawings, such as missing datums, basic dimensions and hole sizes. All drawings were redrawn as fully defined two-view drawings. |
+| Oct 4 | Features and design | Added TutorBot, a page-aware AI chat. Restyled the site as an engineering drawing sheet. |
+| Oct 4 | Independent review | A second agent tested version 1 and wrote a report. The High and Medium issues were fixed. |
+| Oct 5 | TA review | Following my TA's feedback, added progress charts over time. |
+| Oct 6 | Simplify scoring | Replaced the confusing "Learned" rule with one score and a retake flow. |
+| Oct 7 | Question bank | Each question now has 3 versions, 36 in total, so a retake shows a different drawing. Wrote the presentation script. |
+
+## Time spent
+
+| Work | Time | Stages it covers |
+|---|---|---|
+| Refining the requirements document | about 1 hour | Plan, sources and setup |
+| Building, and fixing the AI's mistakes in the diagrams | about 2 hours | Version 1 build, drawing review |
+| Agent testing and fixing again | about 2 hours | Independent review and fixes |
+| Refining the UI, adding TutorBot, working out the alternative learning flow, and recording the video | about 2 hours | Features and design, progress charts, simpler scoring, question bank, script and video |
+| **Total** | **about 7 hours** | |
 
 Commit history: initial commit Oct 2, requirements Oct 3, version 1 Oct 3, drawings, TutorBot and UI Oct 4, review fixes Oct 4, scoring and charts Oct 6, question versions Oct 7.
 
