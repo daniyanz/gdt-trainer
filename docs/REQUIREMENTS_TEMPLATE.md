@@ -1,21 +1,5 @@
 # GD&T Trainer: Requirements Document (Template)
 
-> **How to use this template**
-> - Fill in every field marked `[ ]` or `_TBD_`. Delete the hint text in *italics* once answered.
-> - Where options are listed, keep the one you choose and delete the rest.
-> - Save a filled copy per agent test, e.g. `docs/requirements-v1-agentA.md`, so you can compare results.
-> - Anything you leave as `_TBD_` the agent should ask about or treat as out of scope.
-> - Time budget for the whole project: **8 hours**. If a section feels big, push it to "Later" (Section 10).
-
-| Field | Value |
-|---|---|
-| Version | v1 |
-| Author | Daniya Nussipbek |
-| Date | 2026-10-03 |
-| Agent / tool being tested | _e.g. Claude Code, Cursor, Copilot_ |
-| Status | Ready for build (fill in the agent being tested first) |
-
----
 
 ## 1. Project Overview and Purpose
 
