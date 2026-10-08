@@ -1,73 +1,52 @@
-# Prompt Log: GD&T Trainer
+Tools used: 
+Claude Opus 5.5 for Refining the requirements, recommendations, brainstorming, writing all code, making drawings and content, fixing every issue, testing, git commits 
+Claude was the only AI tool used to BUILD the project - Claude Pro subscription.
+The site itself calls the OpenAI API (gpt-4.1-mini) for "Explain my mistake" and the TutorBot chat.
 
-GD&T Trainer is a free website for engineering students and makers to learn GD&T and practice reading engineering drawings. This log records how it was built with AI assistance, from the first plan to the final version.
+Claude ran its own tests with Python.
 
-## AI models and tools used
+Oct 2, Plan: Asked for a requirements template and filled it in myself: audience, scope, features, tech stack, limits. 
 
-| Tool | Model | What it was used for |
-|---|---|---|
-| Claude Code (Anthropic), in the VS Code extension | Claude Opus 5.5 | Refining the requirements, recommendations, brainstorming, writing all code, drawings and content, fixing every issue, testing, git commits |
-| Claude Code (Anthropic), in the VS Code extension | Claude Fable 5.1 | Only the first planning steps: the requirements template and the first review of my filled-in requirements |
-| Claude, in a separate test-only session | Claude | Independent review of version 1. It reported 18 issues and changed no code. |
+Oct 3, Sources, Setup, first built attempt: Looked for the NASA references, then the NIST and NASA GD&T sources. Set up the OpenAI key, `.env` and Render. Fixed the first failed deploy. Claude built all four tabs from the requirements: Learn, Challenge, Visualize and Progress. 
 
-Claude was the only AI tool used to build the project.
+Oct 3-4, Drawing review: I found underdefined drawings that didn't follow rules, such as missing datums, basic dimensions and hole sizes. All drawings were redrawn as fully defined two-view drawings after asking Claude to fix it. Personally checked if the images were original and tried to understand how information is stored and how questions are generated.
 
-**Inside the finished site:** the site itself calls the OpenAI API (gpt-4.1-mini) for "Explain my mistake" and the TutorBot chat. This is a feature of the product, not a tool used to write it.
+Oct 4, Features and design and testing: Added TutorBot which is a page-aware AI chat. Changed the UI of the site from basic Claude UI to something looking as an engineering drawing sheet. A second agent tested version 1 and wrote a report. The High and Medium issues were fixed. 
 
-Claude ran its own tests with Python, Flask's test client, and Selenium with headless Chrome.
+Oct 4, TA review, Following my TA's feedback, added progress charts over time.
 
-## Development process
+Oct 5, Simplify scoring: Replaced the confusing "Learned" rule with one score and a retake flow. A few iterations were made to refine the learned rule because it was too confusing with the initial version. 
 
-| Date | Stage | What happened |
-|---|---|---|
-| Oct 2 | Plan | Asked for a requirements template and filled it in myself: audience, scope, features, tech stack, limits. |
-| Oct 3 | Sources and setup | Chose the NASA references, then the NIST and NASA GD&T sources. Set up the OpenAI key, `.env` and Render. Fixed the first failed deploy. |
-| Oct 3 | Version 1 build | Claude built all four modes from the requirements: Learn, Challenge, Visualize and Progress. |
-| Oct 3–4 | Drawing review | I found underdefined drawings, such as missing datums, basic dimensions and hole sizes. All drawings were redrawn as fully defined two-view drawings. |
-| Oct 4 | Features and design | Added TutorBot, a page-aware AI chat. Restyled the site as an engineering drawing sheet. |
-| Oct 4 | Independent review | A second agent tested version 1 and wrote a report. The High and Medium issues were fixed. |
-| Oct 5 | TA review | Following my TA's feedback, added progress charts over time. |
-| Oct 6 | Simplify scoring | Replaced the confusing "Learned" rule with one score and a retake flow. |
-| Oct 7 | Question bank | Each question now has 3 versions, 36 in total, so a retake shows a different drawing. Wrote the presentation script. |
+Oct 6, Presentation script: made a quick presentation script
 
-## Time spent
+Oct 7, Question bank: Each question now has 3 versions, 36 in total, so a retake shows a different drawing. Recorded the video. Explored the code. Prepared for the project interview on October 8. 
 
-| Work | Time | Stages it covers |
-|---|---|---|
-| Refining the requirements document | about 1 hour | Plan, sources and setup |
-| Building, and fixing the AI's mistakes in the diagrams | about 2 hours | Version 1 build, drawing review |
-| Agent testing and fixing again | about 2 hours | Independent review and fixes |
-| Refining the UI, adding TutorBot, working out the alternative learning flow, and recording the video | about 3 hours | Features and design, progress charts, simpler scoring, question bank, script and video |
-| **Total** | **about 8 hours** | |
-
-Commit history: initial commit Oct 2, requirements Oct 3, version 1 Oct 3, drawings, TutorBot and UI Oct 4, review fixes Oct 4, scoring and charts Oct 6, question versions Oct 7.
 
 ## Who wrote what
 
 - **Written by me:**
-  - the answers in the requirements document, `docs/REQUIREMENTS_TEMPLATE.md`
+  - the answers in the requirements document wording refined and consulted by Claude Opus 5.5, `docs/REQUIREMENTS_TEMPLATE.md`
   - the choice of sources and the rules for using them
-  - all feature and scope decisions
   - the setup of the OpenAI key, Render and GitHub access
   - reviewing the drawings, the test report and the TA feedback
+  
 - **Written by Claude, directed by my prompts and reviewed by me:**
   - all code: `app.py`, `static/js/`, `static/css/`, the HTML pages
   - the lesson and challenge text in `static/data/`
-  - all SVG drawings
+  - all drawings
   - the tests
-- **Code written or substantially modified by me:** none. I did not edit any code by hand. I directed every change through prompts and reviewed the results in the running site.
+- **Code written or substantially modified by me:** Nothing. I didn't edit any code by hand. I directed every change through prompts and reviewed the result.
 
 ## Which tool for which job
 
-I used Claude Code inside VS Code for all of the work: brainstorming and refining the requirements, writing the code and drawings, and debugging. It works directly in my project folder, so it could read the requirements and the source PDFs, run the site, and test its own changes in a browser, all in one place. For testing, I started a separate, test-only Claude session that had not written the code, so it would look at the site with fresh eyes. I told it not to edit any files and to report issues only. The fixes went back to the main session.
+I used Claude Code inside VS Code for all of the work: brainstorming and refining the requirements, writing the code and drawings, and debugging.  For testing, I started a separate, test-only Claude session that had not written the code, so it would look at the site with fresh eyes. I told it not to edit any files and to report issues only. The fixes went back to the main session.
 
 ## One place AI got it wrong
-
-*[to be written by me]*
+AI got drawings wrong. It focused too much on the question itself and forgot that the drawing rules should be followed even if the question does not directly address that. I noticed missing dimensions, so I asked Claude to revise it again and redraw drawings. 
 
 ## Key prompts, verbatim
 
-The responses below are short summaries. The prompts are copied exactly as I typed them, typos included.
+The responses below are short summaries, and I asked Claude to write them down here. The prompts were copied by Claude exactly as I typed them, typos included.
 
 ### 1. The plan
 > I am creating a website for engineering students and hobbyists to practice GD&T concepts and learn how to interpret engineering drawings. I want there to be a Learn Mode where users can learn symbols and concepts such as flatness, perpendicularity, position, profile, and datum planes with some explanations and visual examples. I also want a Drawing Challenge Mode where the website shows a simplified engineering drawing or manufactured part and asks questions such as “What does this symbol mean?”, “What feature does this tolerance apply to?”, or “What is wrong with this drawing?” I want a Tolerance Visualization Mode where users can change tolerance values using sliders and visually see the allowed tolerance zone become larger or smaller. I also want the website to save and track user scores and areas where the user may need more practice.
@@ -173,9 +152,8 @@ The responses below are short summaries. The prompts are copied exactly as I typ
 ### 18. Presentation script
 > can you make a script so I could describe this project 2-3 minutes
 
-> dont call it an update cuz i havent started recording the video. Just say to improve learning, if the user got the question wrong in the challenge mode, then they will receive a different question in the same topic to earn that point back
-
 **Result:** a script of about 2.5 minutes for the project video.
+Note by me: I copied Claude's script and edited in Google Doc. Claude provided an awful script. 
 
 ## Smaller prompts not listed
 
