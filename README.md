@@ -15,14 +15,18 @@ And there is a floating **TutorBot** chat on every page answers questions about 
 Type these in the terminal (you need python3 for mac and linux):
 
 python3 -m venv .venv
+
 .venv/bin/pip install -r requirements.txt
+
 .venv/bin/python app.py
 
 Then open http://127.0.0.1:5000 in your browser. Once done using the website, press Ctrl+C on your keyboard while in the terminal to stop the server.
 
 On windows terminal type these: 
 python -m venv .venv
+
 .venv\Scripts\pip install -r requirements.txt
+
 .venv\Scripts\python app.py
 
 Then open http://127.0.0.1:5000 in the browser.
