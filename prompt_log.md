@@ -6,9 +6,12 @@ GD&T Trainer is a free website for engineering students and makers to learn GD&T
 
 | Tool | Model | What it was used for |
 |---|---|---|
-| Claude Code (Anthropic), in the VS Code extension | Claude Fable 5.1 and Claude Opus 5.5 | Planning, the requirements template, source checking, writing all code, drawings and content, testing, git commits |
-| A second AI agent | *[fill in which tool you used]* | Independent test-only review of version 1. It reported 18 issues and changed no code. |
-| OpenAI API, inside the finished site | gpt-4.1-mini | Runtime feature only: "Explain my mistake" and the TutorBot chat. Not used to write the project. |
+| Claude Code (Anthropic), in the VS Code extension | Claude Fable 5.1 and Claude Opus 5.5 | Refining the requirements, recommendations, brainstorming, writing and fixing all code, drawings and content, testing, git commits |
+| Claude, in a separate test-only session | Claude | Independent review of version 1. It reported 18 issues and changed no code. |
+
+Claude was the only AI tool used to build the project.
+
+**Inside the finished site:** the site itself calls the OpenAI API (gpt-4.1-mini) for "Explain my mistake" and the TutorBot chat. This is a feature of the product, not a tool used to write it.
 
 Claude ran its own tests with Python, Flask's test client, and Selenium with headless Chrome.
 
@@ -33,8 +36,8 @@ Claude ran its own tests with Python, Flask's test client, and Selenium with hea
 | Refining the requirements document | about 1 hour | Plan, sources and setup |
 | Building, and fixing the AI's mistakes in the diagrams | about 2 hours | Version 1 build, drawing review |
 | Agent testing and fixing again | about 2 hours | Independent review and fixes |
-| Refining the UI, adding TutorBot, working out the alternative learning flow, and recording the video | about 2 hours | Features and design, progress charts, simpler scoring, question bank, script and video |
-| **Total** | **about 7 hours** | |
+| Refining the UI, adding TutorBot, working out the alternative learning flow, and recording the video | about 3 hours | Features and design, progress charts, simpler scoring, question bank, script and video |
+| **Total** | **about 8 hours** | |
 
 Commit history: initial commit Oct 2, requirements Oct 3, version 1 Oct 3, drawings, TutorBot and UI Oct 4, review fixes Oct 4, scoring and charts Oct 6, question versions Oct 7.
 
