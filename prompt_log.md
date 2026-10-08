@@ -6,7 +6,8 @@ GD&T Trainer is a free website for engineering students and makers to learn GD&T
 
 | Tool | Model | What it was used for |
 |---|---|---|
-| Claude Code (Anthropic), in the VS Code extension | Claude Fable 5.1 and Claude Opus 5.5 | Refining the requirements, recommendations, brainstorming, writing and fixing all code, drawings and content, testing, git commits |
+| Claude Code (Anthropic), in the VS Code extension | Claude Opus 5.5 | Refining the requirements, recommendations, brainstorming, writing all code, drawings and content, fixing every issue, testing, git commits |
+| Claude Code (Anthropic), in the VS Code extension | Claude Fable 5.1 | Only the first planning steps: the requirements template and the first review of my filled-in requirements |
 | Claude, in a separate test-only session | Claude | Independent review of version 1. It reported 18 issues and changed no code. |
 
 Claude was the only AI tool used to build the project.
@@ -54,7 +55,15 @@ Commit history: initial commit Oct 2, requirements Oct 3, version 1 Oct 3, drawi
   - the lesson and challenge text in `static/data/`
   - all SVG drawings
   - the tests
-- **Code written or substantially modified by me:** *[none, or list any files you edited by hand]*
+- **Code written or substantially modified by me:** none. I did not edit any code by hand. I directed every change through prompts and reviewed the results in the running site.
+
+## Which tool for which job
+
+I used Claude Code inside VS Code for all of the work: brainstorming and refining the requirements, writing the code and drawings, and debugging. It works directly in my project folder, so it could read the requirements and the source PDFs, run the site, and test its own changes in a browser, all in one place. For testing, I started a separate, test-only Claude session that had not written the code, so it would look at the site with fresh eyes. I told it not to edit any files and to report issues only. The fixes went back to the main session.
+
+## One place AI got it wrong
+
+*[to be written by me]*
 
 ## Key prompts, verbatim
 
