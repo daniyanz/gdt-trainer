@@ -5,6 +5,7 @@ The site itself calls the OpenAI API (gpt-4.1-mini) for "Explain my mistake" and
 
 Claude ran its own tests with Python.
 
+## Timeline
 Oct 2, Plan: Asked for a requirements template and filled it in myself: audience, scope, features, tech stack, limits. 
 
 Oct 3, Sources, Setup, first built attempt: Looked for the NASA references, then the NIST and NASA GD&T sources. Set up the OpenAI key, `.env` and Render. Fixed the first failed deploy. Claude built all four tabs from the requirements: Learn, Challenge, Visualize and Progress. 
